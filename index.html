@@ -467,16 +467,24 @@ async function generate(passage){
 
 /* ── 타이핑 효과 ── */
 function typewrite(text, el, onDone){
-  const words=text.split(/( +|\n+)/);
-  let i=0,buf='';
   el.innerHTML='<span class="blink">▋</span>';
-  const tick=()=>{
-    if(i>=words.length){ el.innerHTML=pHTML(buf); onDone&&onDone(); return; }
-    buf+=words[i++];
-    el.innerHTML=pHTML(buf)+'<span class="blink">▋</span>';
-    setTimeout(tick, words[i-1]&&words[i-1].includes('\n')?70:16);
-  };
-  tick();
+  const words=text.split(/( +|\n+)/);
+  let i=0, buf='', last=0;
+  const DELAY=18;
+  function frame(now){
+    if(!last) last=now;
+    const steps=Math.max(1,Math.floor((now-last)/DELAY));
+    for(let s=0;s<steps&&i<words.length;s++){ buf+=words[i++]; }
+    last=now;
+    if(i<words.length){
+      el.innerHTML=pHTML(buf)+'<span class="blink">▋</span>';
+      requestAnimationFrame(frame);
+    } else {
+      el.innerHTML=pHTML(buf);
+      onDone&&onDone();
+    }
+  }
+  requestAnimationFrame(frame);
 }
 
 /* ── HTML 변환 ── */
