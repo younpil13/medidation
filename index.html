@@ -343,7 +343,11 @@ const showCard=name=>{
 };
 
 /* ── API 키 ── */
-const getKey=()=>localStorage.getItem('med_api_key')||'';
+// ↓↓↓ 여기에 Gemini API 키를 넣어주세요 ↓↓↓
+const SHARED_API_KEY = 'AQ.Ab8RN6Lpl0LdlGbsbCTF8bxrnEzOa1QRa7Qc4Sfae5INBUcaYA';
+// ↑↑↑ 여기에 Gemini API 키를 넣어주세요 ↑↑↑
+
+const getKey=()=>localStorage.getItem('med_api_key')||SHARED_API_KEY;
 const saveKey=k=>localStorage.setItem('med_api_key',k);
 const clearKey=()=>localStorage.removeItem('med_api_key');
 
@@ -557,6 +561,9 @@ $('keySaveBtn').onclick=()=>{
   if(passage) generate(passage); else showCard('cInput');
 };
 
+// 공유 키가 설정돼 있으면 설정 화면 건너뜀
+function hasAnyKey(){ return !!(getKey()); }
+
 /* ── 내일 묵상 백그라운드 프리패치 ── */
 async function prefetchTomorrow(){
   try{
@@ -607,10 +614,11 @@ async function prefetchTomorrow(){
 
   const saved=arc[todayKey()];
   if(saved){
-    // 오늘 묵상 이미 있으면 바로 표시
     renderEntry(saved,true);
+    prefetchTomorrow();
+  } else if(!hasAnyKey()){
+    showSetup();
   } else if(todayPassage){
-    // 자동 생성
     generate(todayPassage);
   } else {
     showCard('cInput');
