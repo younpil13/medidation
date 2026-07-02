@@ -350,17 +350,13 @@ const clearKey=()=>localStorage.removeItem('med_api_key');
 /* ── 묵상 생성 프롬프트 ── */
 const SYSTEM=`너는 성경 원어(히브리어·헬라어)와 신학에 깊이 정통한 묵상 저자야. 한국어로 쓰되, 목회적 따뜻함과 학문적 깊이를 함께 담아. 성경 구절을 그대로 베끼지 말고 너의 언어로 풀어내. 소제목·번호·마크다운 기호 없이 자연스러운 문단으로만 써.`;
 
-const makePrompt=passage=>`오늘의 본문: ${passage}
+const makePrompt=passage=>`본문: ${passage}
 
-아래 흐름으로 깊이 있는 아침 묵상을 써줘. 소제목·번호 없이 자연스럽게 이어지는 문단들로.
+소제목·번호 없이 자연스러운 문단으로 묵상을 써줘.
 
-1. 역사적·문학적 맥락 소개 (2-3문장)
-2. 핵심 단어 1-2개의 헬라어/히브리어 원어 분석. 예: "아파르케(ἀπαρχή)는..." 방식으로 원어 발음과 철자를 자연스럽게 녹여서.
-3. 구속사·신학 주제와의 연결 (2문단)
-4. 오늘 삶에 적용할 질문 (1문단)
-5. 짧은 기도 (2-3문장)
+배경(2문장) → 핵심 원어 1개 분석(헬라어/히브리어 발음·철자 포함) → 신학적 의미(2문단) → 오늘의 적용 질문(1문단) → 기도(2문장)
 
-900-1300자. 원어 표기는 괄호 안에, 신학 용어는 쉽게 풀어서.`;
+700자 내외. 간결하고 깊게.`;
 
 /* ── Anthropic API (아티팩트용, 키 자동 주입) ── */
 async function callAnthropic(passage){
@@ -368,7 +364,7 @@ async function callAnthropic(passage){
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({
-      model:'claude-sonnet-4-6',max_tokens:1800,
+      model:'claude-sonnet-4-6',max_tokens:2048,
       system:SYSTEM,messages:[{role:'user',content:makePrompt(passage)}]
     })
   });
@@ -409,16 +405,19 @@ async function callGemini(passage){
         body:JSON.stringify({
           systemInstruction:{parts:[{text:SYSTEM}]},
           contents:[{parts:[{text:makePrompt(passage)}]}],
-          generationConfig:{temperature:0.8,maxOutputTokens:1800}
+          generationConfig:{temperature:0.8,maxOutputTokens:2048}
         })
       });
       if(r.status===403||r.status===401){ throw new Error('bad-key'); }
-      if(r.status===404){ lastErr='model-404'; continue; } // 다음 모델 시도
+      if(r.status===404){ lastErr='model-404'; continue; }
       if(!r.ok){ lastErr='gemini-'+r.status; continue; }
       const d=await r.json();
       const t=d.candidates?.[0]?.content?.parts?.[0]?.text||'';
-      if(t) return t.trim();
-      lastErr='empty'; continue;
+      const fin=d.candidates?.[0]?.finishReason||'';
+      // MAX_TOKENS면 잘린 것 → 다음 모델 시도
+      if(fin==='MAX_TOKENS'){ lastErr='truncated-by-'+model; continue; }
+      if(t && t.length>150) return t.trim();
+      lastErr='too-short'; continue;
     }catch(e){
       if(e.message==='bad-key') throw e;
       lastErr=e.message;
