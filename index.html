@@ -103,6 +103,7 @@ textarea::placeholder{color:#b0a890;}
 <div class="wrap">
   <nav class="tabs">
     <button class="tab on" id="tToday">오늘</button>
+    <button class="tab" id="tTomorrow">내일</button>
     <button class="tab" id="tArc">지난 묵상</button>
   </nav>
 
@@ -148,6 +149,7 @@ textarea::placeholder{color:#b0a890;}
         <div class="med-text" id="rText"></div>
         <hr class="divider">
         <div class="row">
+          <button class="btn btn-lite" id="btnBible">📖 본문 보기</button>
           <button class="btn btn-lite" id="btnRegen">다시 만들기</button>
           <button class="btn btn-lite" id="btnNew">새 본문</button>
         </div>
@@ -157,6 +159,15 @@ textarea::placeholder{color:#b0a890;}
 
   </section>
 
+  <section class="panel off" id="pTomorrow">
+    <div class="card" id="tomorrowCard">
+      <p class="lbl">내일의 묵상</p>
+      <div id="tomorrowContent">
+        <p style="color:var(--ink-soft);font-size:14px;text-align:center;padding:20px 0;">오늘 묵상을 보면 내일 묵상이 자동으로 준비돼요.</p>
+      </div>
+    </div>
+  </section>
+
   <section class="panel off" id="pArc">
     <div class="card">
       <p class="lbl">지난 묵상</p>
@@ -164,6 +175,17 @@ textarea::placeholder{color:#b0a890;}
       <p class="arc-empty" id="arcEmpty" style="display:none;">아직 저장된 묵상이 없어요.</p>
     </div>
   </section>
+</div>
+
+<!-- 성경 본문 모달 -->
+<div id="bibleModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9998;overflow-y:auto;padding:20px 16px;">
+  <div style="background:var(--paper);border-radius:var(--radius);max-width:540px;margin:0 auto;padding:26px 22px;position:relative;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+      <h3 style="font-family:'Noto Serif KR',serif;font-size:17px;margin:0;" id="bibleModalRef"></h3>
+      <button onclick="document.getElementById('bibleModal').style.display='none'" style="background:none;border:none;font-size:22px;cursor:pointer;color:var(--ink-soft);padding:4px;">✕</button>
+    </div>
+    <div id="bibleModalContent" style="font-size:15px;line-height:2;color:var(--ink);"></div>
+  </div>
 </div>
 
 <div class="toast" id="toastEl"></div>
@@ -363,13 +385,15 @@ const makePrompt=passage=>`본문: ${passage}
 700자 내외. 간결하고 깊게.`;
 
 /* ── Anthropic API (아티팩트용, 키 자동 주입) ── */
-async function callAnthropic(passage){
+async function callAnthropic(passage, rawPrompt=false){
+  const userContent = rawPrompt ? passage : makePrompt(passage);
+  const sysContent = rawPrompt ? '너는 성경 본문을 정확하게 제공하는 도우미야.' : SYSTEM;
   const r=await fetch('https://api.anthropic.com/v1/messages',{
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({
       model:'claude-sonnet-4-6',max_tokens:2048,
-      system:SYSTEM,messages:[{role:'user',content:makePrompt(passage)}]
+      system:sysContent,messages:[{role:'user',content:userContent}]
     })
   });
   if(!r.ok) throw new Error('anthropic-'+r.status);
@@ -380,7 +404,7 @@ async function callAnthropic(passage){
 }
 
 /* ── Gemini API (다운로드용, 무료) ── */
-async function callGemini(passage){
+async function callGemini(passage, rawPrompt=false, customPrompt=null){
   const key=getKey();
   if(!key) throw new Error('no-key');
 
@@ -403,12 +427,14 @@ async function callGemini(passage){
   for(const model of models){
     try{
       const url=`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`;
+      const sysText = rawPrompt ? '너는 성경 본문을 정확하게 제공하는 도우미야.' : SYSTEM;
+      const userText = customPrompt || makePrompt(passage);
       const r=await fetch(url,{
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({
-          systemInstruction:{parts:[{text:SYSTEM}]},
-          contents:[{parts:[{text:makePrompt(passage)}]}],
+          systemInstruction:{parts:[{text:sysText}]},
+          contents:[{parts:[{text:userText}]}],
           generationConfig:{temperature:0.8,maxOutputTokens:2048}
         })
       });
@@ -500,7 +526,10 @@ const renderEntry=(entry,isToday)=>{
   $('rSeal').textContent=sealTxt(entry.date);
   $('rText').innerHTML=pHTML(entry.meditation||'');
   $('btnBack').style.display=isToday?'none':'block';
+  $('btnBible').style.display=isToday?'':'none';
   showCard('cResult');
+  // 오늘 묵상을 보는 순간 내일 묵상 백그라운드 프리패치
+  if(isToday && !arc[tomorrowKey()]) setTimeout(()=>prefetchTomorrow(),2000);
 };
 const renderArc=()=>{
   const list=$('arcList'),empty=$('arcEmpty');
@@ -520,11 +549,14 @@ const renderArc=()=>{
 /* ── 탭 ── */
 const setTab=name=>{
   $('tToday').classList.toggle('on',name==='today');
+  $('tTomorrow').classList.toggle('on',name==='tomorrow');
   $('tArc').classList.toggle('on',name==='arc');
   $('pToday').classList.toggle('off',name!=='today');
+  $('pTomorrow').classList.toggle('off',name!=='tomorrow');
   $('pArc').classList.toggle('off',name!=='arc');
 };
 $('tToday').onclick=()=>setTab('today');
+$('tTomorrow').onclick=()=>{renderTomorrow();setTab('tomorrow');};
 $('tArc').onclick=()=>{renderArc();setTab('arc');};
 
 /* ── 버튼 이벤트 ── */
@@ -536,6 +568,10 @@ $('btnGenCustom').onclick=()=>{
   const v=$('txPassage').value.trim();
   if(!v){toast('본문을 입력해주세요.');return;}
   generate(v);
+};
+$('btnBible').onclick=()=>{
+  const passage = arc[todayKey()]?.reference || SCHEDULE[todayKey()];
+  if(passage) fetchBibleText(passage);
 };
 $('btnRegen').onclick=()=>{
   const p=arc[todayKey()]?.reference||SCHEDULE[todayKey()];
@@ -563,6 +599,64 @@ $('keySaveBtn').onclick=()=>{
 
 // 공유 키가 설정돼 있으면 설정 화면 건너뜀
 function hasAnyKey(){ return !!(getKey()); }
+
+/* ── 내일 날짜 계산 ── */
+function tomorrowKey(){
+  const kst=new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Seoul'}));
+  kst.setDate(kst.getDate()+1);
+  return kst.toLocaleDateString('en-CA');
+}
+
+/* ── 내일 탭 렌더링 ── */
+function renderTomorrow(){
+  const key=tomorrowKey();
+  const entry=arc[key];
+  const el=$('tomorrowContent');
+  if(entry){
+    el.innerHTML=`
+      <div style="margin-bottom:12px;">
+        <span style="font-family:'Noto Serif KR',serif;font-size:17px;font-weight:600;">${entry.reference}</span>
+        ${entry.prefetched?'<span style="font-size:11px;color:var(--accent);margin-left:8px;background:rgba(138,90,62,0.1);padding:2px 8px;border-radius:999px;">미리 받음</span>':''}
+      </div>
+      <div style="font-size:15px;line-height:1.9;color:var(--ink);">${pHTML(entry.meditation)}</div>`;
+  } else {
+    const passage=SCHEDULE[key];
+    if(passage){
+      el.innerHTML=`<div style="text-align:center;padding:20px 0;">
+        <p style="color:var(--ink-soft);font-size:14px;margin:0 0 14px;">내일 본문: <strong>${passage}</strong></p>
+        <button class="btn btn-dark" onclick="prefetchNow()">지금 미리 받기</button>
+      </div>`;
+    } else {
+      el.innerHTML='<p style="color:var(--ink-soft);font-size:14px;text-align:center;padding:20px 0;">내일 본문을 찾을 수 없어요.</p>';
+    }
+  }
+}
+
+async function prefetchNow(){
+  $('tomorrowContent').innerHTML='<p style="color:var(--ink-soft);font-size:14px;text-align:center;padding:20px 0;">내일 묵상 생성 중...</p>';
+  await prefetchTomorrow();
+  renderTomorrow();
+}
+
+/* ── 성경 본문 보기 ── */
+async function fetchBibleText(passage){
+  $('bibleModalRef').textContent=passage;
+  $('bibleModalContent').innerHTML='<p style="color:var(--ink-soft);text-align:center;padding:20px 0;">본문을 불러오는 중...</p>';
+  $('bibleModal').style.display='block';
+  try{
+    let text;
+    const prompt=`다음 성경 본문을 개역개정 번역으로 전체 다 써줘. 절 번호를 앞에 붙여서. 본문만, 다른 설명 없이.
+
+${passage}`;
+    try{ text=await callAnthropic(prompt,true); }
+    catch(e){ text=await callGemini(passage,true,prompt); }
+    $('bibleModalContent').innerHTML=text.split('
+').filter(Boolean)
+      .map(v=>`<p style="margin:0 0 8px;">${v.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</p>`).join('');
+  }catch(e){
+    $('bibleModalContent').innerHTML='<p style="color:var(--ink-soft);">본문을 불러오지 못했어요.</p>';
+  }
+}
 
 /* ── 내일 묵상 백그라운드 프리패치 ── */
 async function prefetchTomorrow(){
