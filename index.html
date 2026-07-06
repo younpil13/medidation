@@ -6,102 +6,76 @@
 <title>오늘의 묵상</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --ink:#262b3d;--ink-soft:#5b5f74;--paper:#f8f3e7;
-  --edge:#e7dcc1;--line:#e2d6b8;--bg:#f5efe0;
-  --acc:#8a5a3e;--s1:#c1453a;--s2:#7c2620;
-  --r:20px;--sh:0 16px 40px -12px rgba(40,28,12,.28);
-}
-*{box-sizing:border-box;} html,body{margin:0;padding:0;}
+:root{--ink:#262b3d;--soft:#5b5f74;--paper:#f8f3e7;--edge:#e7dcc1;--line:#e2d6b8;--bg:#f5efe0;--acc:#8a5a3e;--s1:#c1453a;--s2:#7c2620;--r:18px;--sh:0 14px 36px -10px rgba(40,28,12,.26);}
+*{box-sizing:border-box;}html,body{margin:0;padding:0;}
 body{background:var(--bg);color:var(--ink);font-family:'Noto Sans KR',sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh;}
-
-.hero{position:relative;overflow:hidden;padding:38px 24px 56px;background:linear-gradient(180deg,#1a2148 0%,#3d3460 32%,#8a5a63 62%,#e3a753 100%);text-align:center;}
-.hero::after{content:"";position:absolute;inset:0;top:auto;height:46%;background:linear-gradient(180deg,transparent,var(--bg));pointer-events:none;}
-.eyebrow{position:relative;z-index:2;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#f6dfb0;font-weight:600;margin:0 0 10px;}
-.hero h1{position:relative;z-index:2;font-family:'Noto Serif KR',serif;font-size:clamp(26px,7vw,36px);color:#fffaf0;margin:0 0 8px;}
-.hero .dt{position:relative;z-index:2;font-size:14px;color:#f4e8d2;margin:0;}
-.sun-wrap{position:absolute;left:0;right:0;bottom:14px;height:60px;display:flex;justify-content:center;pointer-events:none;}
-.horizon{position:absolute;left:0;right:0;bottom:32px;height:1px;background:rgba(255,247,222,.35);}
-.sun{width:46px;height:46px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff3d6,#f3b35a 55%,#d98a3e);box-shadow:0 0 36px 6px rgba(243,179,90,.55);transform:translateY(46px);opacity:0;animation:rise 2.4s cubic-bezier(.22,.9,.32,1) .2s forwards;}
+.hero{position:relative;overflow:hidden;padding:36px 20px 52px;background:linear-gradient(180deg,#1a2148 0%,#3d3460 32%,#8a5a63 62%,#e3a753 100%);text-align:center;}
+.hero::after{content:"";position:absolute;inset:0;top:auto;height:44%;background:linear-gradient(180deg,transparent,var(--bg));pointer-events:none;}
+.eyebrow{position:relative;z-index:2;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#f6dfb0;font-weight:600;margin:0 0 8px;}
+.hero h1{position:relative;z-index:2;font-family:'Noto Serif KR',serif;font-size:clamp(24px,7vw,34px);color:#fffaf0;margin:0 0 6px;}
+.hero .dt{position:relative;z-index:2;font-size:13px;color:#f4e8d2;margin:0;}
+.sun-wrap{position:absolute;left:0;right:0;bottom:12px;height:56px;display:flex;justify-content:center;pointer-events:none;}
+.horizon{position:absolute;left:0;right:0;bottom:28px;height:1px;background:rgba(255,247,222,.3);}
+.sun{width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff3d6,#f3b35a 55%,#d98a3e);box-shadow:0 0 32px 6px rgba(243,179,90,.5);transform:translateY(44px);opacity:0;animation:rise 2.2s cubic-bezier(.22,.9,.32,1) .2s forwards;}
 @keyframes rise{to{transform:translateY(0);opacity:1;}}
-
-.wrap{max-width:560px;margin:-30px auto 60px;padding:0 18px;position:relative;z-index:3;}
-.tabs{display:flex;gap:5px;background:rgba(255,255,255,.55);border:1px solid var(--edge);border-radius:999px;padding:5px;margin:0 auto 18px;width:fit-content;backdrop-filter:blur(4px);}
-.tab{border:none;background:transparent;font-family:inherit;font-size:13px;font-weight:600;color:var(--ink-soft);padding:8px 16px;border-radius:999px;cursor:pointer;transition:.2s;}
+.wrap{max-width:540px;margin:-28px auto 56px;padding:0 16px;position:relative;z-index:3;}
+.tabs{display:flex;gap:4px;background:rgba(255,255,255,.5);border:1px solid var(--edge);border-radius:999px;padding:4px;margin:0 auto 16px;width:fit-content;backdrop-filter:blur(4px);}
+.tab{border:none;background:transparent;font-family:inherit;font-size:13px;font-weight:600;color:var(--soft);padding:7px 15px;border-radius:999px;cursor:pointer;transition:.18s;}
 .tab.on{background:var(--ink);color:#fdf6e8;}
 .panel.off{display:none;}
-
-.card{background:var(--paper);border:1px solid var(--edge);border-radius:var(--r);box-shadow:var(--sh);padding:26px 24px;}
-.card+.card{margin-top:14px;}
-.lbl{font-size:13px;font-weight:600;color:var(--acc);margin:0 0 12px;}
-
-.passage-banner{background:linear-gradient(135deg,#1f2750,#3d3460);border-radius:14px;padding:16px 18px;margin-bottom:16px;display:flex;align-items:center;gap:12px;}
-.pb-icon{font-size:26px;flex:none;}
-.pb-ref{font-family:'Noto Serif KR',serif;font-size:16px;font-weight:700;color:#fffaf0;margin:0 0 3px;}
-.pb-note{font-size:12px;color:#b8c4e8;margin:0;}
-
+.card{background:var(--paper);border:1px solid var(--edge);border-radius:var(--r);box-shadow:var(--sh);padding:24px 22px;}
+.card+.card{margin-top:12px;}
+.lbl{font-size:12px;font-weight:700;color:var(--acc);letter-spacing:.05em;margin:0 0 12px;text-transform:uppercase;}
+.banner{background:linear-gradient(135deg,#1f2750,#3d3460);border-radius:13px;padding:15px 17px;margin-bottom:14px;display:flex;align-items:center;gap:12px;}
+.banner-icon{font-size:24px;flex:none;}
+.banner-ref{font-family:'Noto Serif KR',serif;font-size:16px;font-weight:700;color:#fffaf0;margin:0 0 2px;}
+.banner-note{font-size:11px;color:#b8c4e8;margin:0;}
 .row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
-.btn{font-family:inherit;font-weight:600;font-size:14px;border-radius:12px;padding:11px 16px;border:none;cursor:pointer;transition:.12s;}
-.btn:active{transform:translateY(1px);} .btn:disabled{opacity:.45;cursor:default;}
+.btn{font-family:inherit;font-weight:600;font-size:14px;border-radius:11px;padding:11px 15px;border:none;cursor:pointer;transition:.12s;}
+.btn:active{transform:translateY(1px);}.btn:disabled{opacity:.4;cursor:default;}
 .btn-dark{background:var(--ink);color:#fdf6e8;flex:1;}
 .btn-lite{background:transparent;color:var(--acc);border:1px solid var(--line);}
 .btn-lite:hover:not(:disabled){background:rgba(138,90,62,.08);}
-.hint{font-size:12px;color:var(--ink-soft);line-height:1.6;margin:10px 0 0;}
-.hint a{color:var(--acc);}
-textarea{width:100%;min-height:90px;resize:vertical;border:1.5px solid var(--line);border-radius:12px;background:#fffdf7;padding:12px;font-family:inherit;font-size:14px;line-height:1.7;color:var(--ink);margin-top:10px;}
-textarea:focus{outline:none;border-color:var(--acc);}
-textarea::placeholder{color:#b0a890;}
-
-.spin-wrap{text-align:center;padding:28px 10px;}
-.spinner{width:32px;height:32px;margin:0 auto 12px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--acc);animation:spin .9s linear infinite;}
+.hint{font-size:12px;color:var(--soft);line-height:1.6;margin:10px 0 0;}.hint a{color:var(--acc);}
+textarea{width:100%;min-height:88px;resize:vertical;border:1.5px solid var(--line);border-radius:11px;background:#fffdf7;padding:11px;font-family:inherit;font-size:14px;line-height:1.7;color:var(--ink);margin-top:9px;}
+textarea:focus{outline:none;border-color:var(--acc);}textarea::placeholder{color:#b0a890;}
+.spin-wrap{text-align:center;padding:26px 10px;}
+.spinner{width:30px;height:30px;margin:0 auto 10px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--acc);animation:spin .85s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
-.spin-wrap p{color:var(--ink-soft);font-size:14px;margin:0;}
-
-.r-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px;}
-.ref{font-family:'Noto Serif KR',serif;font-size:18px;font-weight:600;margin:0;}
-.seal{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--s1),var(--s2));color:#fdf3e6;font-family:'Noto Serif KR',serif;font-weight:700;font-size:11px;transform:rotate(-9deg);box-shadow:0 2px 8px rgba(90,30,20,.35);border:1.5px solid rgba(255,255,255,.2);flex:none;}
-.med-text{font-size:15px;line-height:1.95;} .med-text p{margin:0 0 15px;}
-.divider{height:1px;background:var(--line);margin:18px 0 14px;border:none;}
-.src{font-size:12px;color:var(--ink-soft);line-height:1.6;margin-top:12px;} .src a{color:var(--acc);}
-.back-btn{background:none;border:none;cursor:pointer;color:var(--acc);font-size:13px;font-weight:600;margin-bottom:12px;padding:0;display:block;}
-
-.arc-empty{text-align:center;color:var(--ink-soft);font-size:14px;padding:20px 0;}
-.arc-item{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#fffdf7;border:1px solid var(--line);border-radius:12px;padding:11px 14px;margin-bottom:9px;cursor:pointer;font-family:inherit;}
+.spin-wrap p{color:var(--soft);font-size:14px;margin:0;}
+.r-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px;}
+.r-ref{font-family:'Noto Serif KR',serif;font-size:17px;font-weight:600;margin:0;}
+.seal{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--s1),var(--s2));color:#fdf3e6;font-family:'Noto Serif KR',serif;font-weight:700;font-size:11px;transform:rotate(-9deg);box-shadow:0 2px 8px rgba(90,30,20,.3);flex:none;}
+.med{font-size:15px;line-height:1.95;}.med p{margin:0 0 14px;}
+.divider{height:1px;background:var(--line);margin:16px 0 13px;border:none;}
+.src{font-size:11px;color:var(--soft);margin-top:11px;}.src a{color:var(--acc);}
+.back-btn{background:none;border:none;cursor:pointer;color:var(--acc);font-size:13px;font-weight:600;margin-bottom:11px;padding:0;display:block;}
+.arc-empty{text-align:center;color:var(--soft);font-size:14px;padding:18px 0;}
+.arc-item{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:#fffdf7;border:1px solid var(--line);border-radius:11px;padding:10px 13px;margin-bottom:8px;cursor:pointer;font-family:inherit;}
 .arc-item:hover{border-color:var(--acc);}
-.arc-item .seal{width:32px;height:32px;font-size:10px;}
+.arc-item .seal{width:30px;height:30px;font-size:10px;}
 .arc-item .meta{flex:1;min-width:0;}
-.arc-item .a-dt{font-size:12px;color:var(--ink-soft);margin:0 0 2px;}
-.arc-item .a-ref{font-size:14px;font-weight:600;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-
-.tomorrow-empty{text-align:center;padding:20px 0;}
-.tomorrow-empty p{color:var(--ink-soft);font-size:14px;margin:0 0 14px;}
-
-/* Bible Modal */
-.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9000;overflow-y:auto;padding:24px 16px;display:none;}
-.modal-box{background:var(--paper);border-radius:var(--r);max-width:540px;margin:0 auto;padding:24px 20px;}
-.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
-.modal-head h3{font-family:'Noto Serif KR',serif;font-size:16px;margin:0;}
-.modal-close{background:none;border:none;font-size:22px;cursor:pointer;color:var(--ink-soft);padding:2px 6px;line-height:1;}
-.bible-text{font-size:14.5px;line-height:2;color:var(--ink);}
-.bible-text p{margin:0 0 4px;}
-
-/* Setup Overlay */
-.setup-bg{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px;}
-.setup-box{background:var(--paper);border:1px solid var(--edge);border-radius:var(--r);box-shadow:var(--sh);padding:30px 24px;width:100%;max-width:420px;}
-.setup-box h2{font-family:'Noto Serif KR',serif;font-size:20px;margin:0 0 8px;}
-.setup-box p{font-size:14px;color:var(--ink-soft);line-height:1.7;margin:0 0 16px;}
-.setup-box a{color:var(--acc);}
-.key-input{width:100%;border:1.5px solid var(--line);border-radius:12px;background:#fffdf7;padding:12px 14px;font-family:monospace;font-size:13px;color:var(--ink);margin-bottom:10px;}
-.key-input:focus{outline:none;border-color:var(--acc);}
-.key-note{font-size:12px;color:var(--ink-soft);margin:10px 0 0;line-height:1.6;}
-
-/* Toast */
-.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(14px);background:var(--ink);color:#fdf6e8;font-size:13px;padding:10px 18px;border-radius:999px;box-shadow:0 8px 28px rgba(0,0,0,.2);opacity:0;transition:.25s;pointer-events:none;max-width:88vw;text-align:center;z-index:99999;}
+.arc-item .a-dt{font-size:11px;color:var(--soft);margin:0 0 2px;}
+.arc-item .a-ref{font-size:13px;font-weight:600;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9000;overflow-y:auto;padding:20px 14px;display:none;}
+.modal-box{background:var(--paper);border-radius:var(--r);max-width:520px;margin:0 auto;padding:22px 18px;}
+.modal-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;}
+.modal-top h3{font-family:'Noto Serif KR',serif;font-size:16px;margin:0;}
+.modal-close{background:none;border:none;font-size:21px;cursor:pointer;color:var(--soft);padding:2px 5px;line-height:1;}
+.bible-text{font-size:14px;line-height:2.1;color:var(--ink);}.bible-text p{margin:0 0 3px;}
+.setup-bg{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;}
+.setup-box{background:var(--paper);border:1px solid var(--edge);border-radius:var(--r);box-shadow:var(--sh);padding:28px 22px;width:100%;max-width:400px;}
+.setup-box h2{font-family:'Noto Serif KR',serif;font-size:19px;margin:0 0 6px;}
+.errmsg{color:#c1453a;font-size:13px;font-weight:600;min-height:16px;margin:0 0 10px;}
+.setup-box p{font-size:13px;color:var(--soft);line-height:1.7;margin:0 0 13px;}.setup-box a{color:var(--acc);}
+.key-inp{width:100%;border:1.5px solid var(--line);border-radius:11px;background:#fffdf7;padding:11px 13px;font-family:monospace;font-size:13px;color:var(--ink);margin-bottom:9px;}
+.key-inp:focus{outline:none;border-color:var(--acc);}
+.key-note{font-size:11px;color:var(--soft);margin:9px 0 0;line-height:1.5;}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(14px);background:var(--ink);color:#fdf6e8;font-size:13px;padding:10px 18px;border-radius:999px;box-shadow:0 6px 24px rgba(0,0,0,.2);opacity:0;transition:.22s;pointer-events:none;max-width:86vw;text-align:center;z-index:99999;}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
 </style>
 </head>
 <body>
-
 <div class="hero">
   <p class="eyebrow">Daily Bible Meditation · 성서유니온 매일성경 2026</p>
   <h1>오늘의 묵상</h1>
@@ -109,51 +83,29 @@ textarea::placeholder{color:#b0a890;}
   <div class="horizon"></div>
   <div class="sun-wrap"><div class="sun"></div></div>
 </div>
-
 <div class="wrap">
   <nav class="tabs">
     <button class="tab on" id="tToday">오늘</button>
     <button class="tab" id="tTomorrow">내일</button>
     <button class="tab" id="tArc">지난 묵상</button>
   </nav>
-
-  <!-- 오늘 패널 -->
   <section class="panel" id="pToday">
     <div id="cInput">
       <div class="card">
         <p class="lbl">오늘의 본문</p>
-        <div class="passage-banner">
-          <span class="pb-icon">📖</span>
-          <div><p class="pb-ref" id="pbRef">확인 중...</p><p class="pb-note">2026 성서유니온 읽기표</p></div>
-        </div>
-        <div class="row" style="margin-top:0;">
-          <button class="btn btn-dark" id="btnGen">✨ 오늘의 묵상 만들기</button>
-        </div>
-        <p class="hint">본문이 다를 경우 <a href="https://sum.su.or.kr:8888/bible/today" target="_blank">사이트</a>에서 확인 후 아래에 입력해주세요.</p>
-        <textarea id="txPassage" placeholder="예) 시편 4:1-8 (다를 경우만 입력)"></textarea>
-        <div class="row">
-          <button class="btn btn-lite" style="width:100%;" id="btnGenCustom">입력한 본문으로 묵상 만들기</button>
-        </div>
+        <div class="banner"><span class="banner-icon">📖</span><div><p class="banner-ref" id="pbRef">확인 중...</p><p class="banner-note">2026 성서유니온 읽기표</p></div></div>
+        <div class="row" style="margin-top:0;"><button class="btn btn-dark" id="btnGen">✨ 오늘의 묵상 만들기</button></div>
+        <p class="hint">본문이 다를 경우 <a href="https://sum.su.or.kr:8888/bible/today" target="_blank">사이트</a>에서 확인 후 입력해주세요.</p>
+        <textarea id="txPassage" placeholder="예) 시편 6:1-10 (다를 경우만 입력)"></textarea>
+        <div class="row"><button class="btn btn-lite" style="width:100%;" id="btnGenCustom">입력한 본문으로 묵상 만들기</button></div>
       </div>
     </div>
-
-    <div id="cLoad" style="display:none;">
-      <div class="card">
-        <div class="spin-wrap">
-          <div class="spinner"></div>
-          <p id="loadMsg">묵상을 준비하는 중...</p>
-        </div>
-      </div>
-    </div>
-
+    <div id="cLoad" style="display:none;"><div class="card"><div class="spin-wrap"><div class="spinner"></div><p id="loadMsg">묵상을 준비하는 중...</p></div></div></div>
     <div id="cResult" style="display:none;">
       <div class="card">
         <button class="back-btn" id="btnBack" style="display:none;">← 오늘의 묵상으로</button>
-        <div class="r-head">
-          <h2 class="ref" id="rRef"></h2>
-          <span class="seal" id="rSeal"></span>
-        </div>
-        <div class="med-text" id="rText"></div>
+        <div class="r-head"><h2 class="r-ref" id="rRef"></h2><span class="seal" id="rSeal"></span></div>
+        <div class="med" id="rText"></div>
         <hr class="divider">
         <div class="row">
           <button class="btn btn-lite" id="btnBible">📖 본문 보기</button>
@@ -164,75 +116,54 @@ textarea::placeholder{color:#b0a890;}
       </div>
     </div>
   </section>
-
-  <!-- 내일 패널 -->
   <section class="panel off" id="pTomorrow">
-    <div class="card">
-      <p class="lbl">내일의 묵상</p>
-      <div id="tomorrowContent"></div>
-    </div>
+    <div class="card"><p class="lbl">내일의 묵상</p><div id="tmrContent"></div></div>
   </section>
-
-  <!-- 지난 묵상 패널 -->
   <section class="panel off" id="pArc">
-    <div class="card">
-      <p class="lbl">지난 묵상</p>
-      <div id="arcList"></div>
-      <p class="arc-empty" id="arcEmpty" style="display:none;">아직 저장된 묵상이 없어요.</p>
-    </div>
+    <div class="card"><p class="lbl">지난 묵상</p><div id="arcList"></div><p class="arc-empty" id="arcEmpty" style="display:none;">아직 저장된 묵상이 없어요.</p></div>
   </section>
 </div>
-
-<!-- 성경 본문 모달 -->
 <div class="modal-bg" id="bibleModal">
   <div class="modal-box">
-    <div class="modal-head">
-      <h3 id="bibleRef"></h3>
-      <button class="modal-close" id="bibleClose">✕</button>
-    </div>
+    <div class="modal-top"><h3 id="bibleRef"></h3><button class="modal-close" id="bibleClose">✕</button></div>
     <div class="bible-text" id="bibleContent"></div>
   </div>
 </div>
-
-<!-- API 키 설정 -->
 <div class="setup-bg" id="setupBg" style="display:none;">
   <div class="setup-box">
     <h2>🔑 Google AI 키 설정</h2>
-    <p id="setupMsg" style="color:var(--s1);font-weight:600;font-size:13px;min-height:16px;margin-bottom:8px;"></p>
+    <p class="errmsg" id="setupErr"></p>
     <p><strong>완전 무료</strong> · 신용카드 불필요<br>처음 한 번만 입력하면 저장돼요.</p>
-    <p style="font-size:13px;color:var(--acc);line-height:1.8;margin:0 0 14px;">
-      1. <a href="https://aistudio.google.com/app/apikey" target="_blank"><strong>aistudio.google.com</strong></a> 접속<br>
-      2. Google 계정 로그인<br>
-      3. Get API key → Create API key → 복사
-    </p>
-    <input class="key-input" id="keyInput" type="password" placeholder="키를 붙여넣어 주세요">
-    <button class="btn btn-dark" style="width:100%;margin-top:8px;" id="keySaveBtn">저장하고 시작하기</button>
+    <p style="font-size:13px;color:var(--acc);line-height:1.8;margin:0 0 13px;">1. <a href="https://aistudio.google.com/app/apikey" target="_blank"><strong>aistudio.google.com</strong></a> 접속<br>2. Google 계정 로그인<br>3. Get API key → Create API key → 복사</p>
+    <input class="key-inp" id="keyInp" type="password" placeholder="키를 붙여넣어 주세요">
+    <button class="btn btn-dark" style="width:100%;margin-top:6px;" id="keySaveBtn">저장하고 시작하기</button>
     <p class="key-note">키는 이 기기에만 저장되며 외부로 전송되지 않아요.</p>
   </div>
 </div>
-
 <div class="toast" id="toastEl"></div>
-
 <script>
 (function(){
 "use strict";
-var G = function(id){ return document.getElementById(id); };
+function G(id){ return document.getElementById(id); }
 
 /* ── 2026 읽기표 ── */
-var SCH = {
-  "2026-01-01":"창세기 1:1-13","2026-01-02":"창세기 1:14-25","2026-01-03":"창세기 1:26-2:3","2026-01-04":"창세기 2:4-25","2026-01-05":"창세기 3:1-13","2026-01-06":"창세기 3:14-24","2026-01-07":"창세기 4:1-26","2026-01-08":"창세기 5:1-32","2026-01-09":"창세기 6:1-22","2026-01-10":"창세기 7:1-24","2026-01-11":"창세기 8:1-22","2026-01-12":"창세기 9:1-17","2026-01-13":"창세기 9:18-29","2026-01-14":"창세기 10:1-32","2026-01-15":"창세기 11:1-9","2026-01-16":"창세기 11:10-30","2026-01-17":"창세기 11:31-12:9","2026-01-18":"창세기 12:10-20","2026-01-19":"창세기 13:1-18","2026-01-20":"창세기 14:1-24","2026-01-21":"창세기 15:1-21","2026-01-22":"창세기 16:1-16","2026-01-23":"창세기 17:1-27","2026-01-24":"창세기 18:1-15","2026-01-25":"창세기 18:16-33","2026-01-26":"창세기 19:1-11","2026-01-27":"창세기 19:12-23","2026-01-28":"창세기 19:24-38","2026-01-29":"창세기 20:1-18","2026-01-30":"창세기 21:1-21","2026-01-31":"창세기 21:22-34",
-  "2026-02-01":"요한복음 1:1-18","2026-02-02":"요한복음 1:19-34","2026-02-03":"요한복음 1:35-51","2026-02-04":"요한복음 2:1-12","2026-02-05":"요한복음 2:13-25","2026-02-06":"요한복음 3:1-15","2026-02-07":"요한복음 3:16-21","2026-02-08":"요한복음 3:22-36","2026-02-09":"요한복음 4:1-14","2026-02-10":"요한복음 4:15-26","2026-02-11":"요한복음 4:27-42","2026-02-12":"요한복음 4:43-54","2026-02-13":"요한복음 5:1-15","2026-02-14":"요한복음 5:16-30","2026-02-15":"요한복음 5:31-47","2026-02-16":"요한복음 6:1-15","2026-02-17":"요한복음 6:16-29","2026-02-18":"요한복음 6:30-40","2026-02-19":"요한복음 6:41-59","2026-02-20":"요한복음 6:60-71","2026-02-21":"요한복음 7:1-13","2026-02-22":"요한복음 7:14-24","2026-02-23":"요한복음 7:25-36","2026-02-24":"요한복음 7:37-52","2026-02-25":"요한복음 7:53-8:20","2026-02-26":"요한복음 8:21-30","2026-02-27":"요한복음 8:31-41","2026-02-28":"요한복음 8:42-59",
-  "2026-03-01":"요한복음 9:1-12","2026-03-02":"요한복음 9:13-23","2026-03-03":"요한복음 9:24-41","2026-03-04":"요한복음 10:1-21","2026-03-05":"요한복음 10:22-42","2026-03-06":"요한복음 11:1-16","2026-03-07":"요한복음 11:17-27","2026-03-08":"요한복음 11:28-37","2026-03-09":"요한복음 11:38-46","2026-03-10":"요한복음 11:47-57","2026-03-11":"요한복음 12:1-11","2026-03-12":"요한복음 12:12-19","2026-03-13":"요한복음 12:20-33","2026-03-14":"요한복음 12:34-43","2026-03-15":"요한복음 12:44-50","2026-03-16":"요한복음 13:1-17","2026-03-17":"요한복음 13:18-30","2026-03-18":"요한복음 13:31-38","2026-03-19":"요한복음 14:1-14","2026-03-20":"요한복음 14:15-21","2026-03-21":"요한복음 14:22-31","2026-03-22":"요한복음 15:1-17","2026-03-23":"요한복음 15:18-27","2026-03-24":"요한복음 16:1-15","2026-03-25":"요한복음 16:16-24","2026-03-26":"요한복음 16:25-33","2026-03-27":"요한복음 17:1-16","2026-03-28":"요한복음 17:17-26","2026-03-29":"요한복음 18:1-11","2026-03-30":"요한복음 18:12-27","2026-03-31":"요한복음 18:28-38",
-  "2026-04-01":"요한복음 18:39-19:16","2026-04-02":"요한복음 19:17-27","2026-04-03":"요한복음 19:28-30","2026-04-04":"요한복음 19:31-42","2026-04-05":"요한복음 20:1-18","2026-04-06":"요한복음 20:19-31","2026-04-07":"요한복음 21:1-14","2026-04-08":"요한복음 21:15-25","2026-04-09":"창세기 22:1-24","2026-04-10":"창세기 23:1-20","2026-04-11":"창세기 24:1-27","2026-04-12":"창세기 24:28-49","2026-04-13":"창세기 24:50-67","2026-04-14":"창세기 25:1-18","2026-04-15":"창세기 25:19-34","2026-04-16":"창세기 26:1-11","2026-04-17":"창세기 26:12-33","2026-04-18":"창세기 26:34-27:14","2026-04-19":"창세기 27:15-29","2026-04-20":"창세기 27:30-46","2026-04-21":"창세기 28:1-22","2026-04-22":"창세기 29:1-20","2026-04-23":"창세기 29:21-35","2026-04-24":"창세기 30:1-24","2026-04-25":"창세기 30:25-43","2026-04-26":"창세기 31:1-16","2026-04-27":"창세기 31:17-35","2026-04-28":"창세기 31:36-55","2026-04-29":"창세기 32:1-21","2026-04-30":"창세기 32:22-32",
-  "2026-05-01":"창세기 33:1-20","2026-05-02":"창세기 34:1-17","2026-05-03":"창세기 34:18-31","2026-05-04":"창세기 35:1-22","2026-05-05":"창세기 35:23-36:8","2026-05-06":"창세기 36:9-43","2026-05-07":"창세기 37:1-17","2026-05-08":"창세기 37:18-36","2026-05-09":"창세기 38:1-30","2026-05-10":"창세기 39:1-23","2026-05-11":"창세기 40:1-23","2026-05-12":"창세기 41:1-24","2026-05-13":"창세기 41:25-36","2026-05-14":"창세기 41:37-57","2026-05-15":"창세기 42:1-17","2026-05-16":"창세기 42:18-38","2026-05-17":"창세기 43:1-15","2026-05-18":"창세기 43:16-34","2026-05-19":"창세기 44:1-17","2026-05-20":"창세기 44:18-34","2026-05-21":"창세기 45:1-15","2026-05-22":"창세기 45:16-28","2026-05-23":"창세기 46:1-27","2026-05-24":"창세기 46:28-47:12","2026-05-25":"창세기 47:13-26","2026-05-26":"창세기 47:27-48:7","2026-05-27":"창세기 48:8-22","2026-05-28":"창세기 49:1-15","2026-05-29":"창세기 49:16-28","2026-05-30":"창세기 49:29-50:14","2026-05-31":"창세기 50:15-26",
-  "2026-06-01":"고린도전서 1:1-9","2026-06-02":"고린도전서 1:10-17","2026-06-03":"고린도전서 1:18-31","2026-06-04":"고린도전서 2:1-16","2026-06-05":"고린도전서 3:1-15","2026-06-06":"고린도전서 3:16-4:5","2026-06-07":"고린도전서 4:6-21","2026-06-08":"고린도전서 5:1-13","2026-06-09":"고린도전서 6:1-11","2026-06-10":"고린도전서 6:12-20","2026-06-11":"고린도전서 7:1-24","2026-06-12":"고린도전서 7:25-40","2026-06-13":"고린도전서 8:1-13","2026-06-14":"고린도전서 9:1-23","2026-06-15":"고린도전서 9:24-10:13","2026-06-16":"고린도전서 10:14-11:1","2026-06-17":"고린도전서 11:2-16","2026-06-18":"고린도전서 11:17-34","2026-06-19":"고린도전서 12:1-11","2026-06-20":"고린도전서 12:12-31","2026-06-21":"고린도전서 13:1-13","2026-06-22":"고린도전서 14:1-19","2026-06-23":"고린도전서 14:20-40","2026-06-24":"고린도전서 15:1-11","2026-06-25":"고린도전서 15:12-19","2026-06-26":"고린도전서 15:20-34","2026-06-27":"고린도전서 15:35-49","2026-06-28":"고린도전서 15:50-58","2026-06-29":"고린도전서 16:1-12","2026-06-30":"고린도전서 16:13-24",
-  "2026-07-01":"시편 1:1-6","2026-07-02":"시편 2:1-12","2026-07-03":"시편 3:1-8","2026-07-04":"시편 4:1-8","2026-07-05":"시편 5:1-12","2026-07-06":"시편 6:1-10","2026-07-07":"시편 7:1-17","2026-07-08":"시편 8:1-9","2026-07-09":"시편 9:1-20","2026-07-10":"시편 10:1-18","2026-07-11":"시편 11:1-7","2026-07-12":"시편 12:1-8","2026-07-13":"시편 13:1-6","2026-07-14":"시편 14:1-7","2026-07-15":"시편 15:1-5","2026-07-16":"이사야 1:1-20","2026-07-17":"이사야 1:21-31","2026-07-18":"이사야 2:1-22","2026-07-19":"이사야 3:1-12","2026-07-20":"이사야 3:13-4:6","2026-07-21":"이사야 5:1-17","2026-07-22":"이사야 5:18-30","2026-07-23":"이사야 6:1-13","2026-07-24":"이사야 7:1-25","2026-07-25":"이사야 8:1-22","2026-07-26":"이사야 9:1-7","2026-07-27":"이사야 9:8-10:4","2026-07-28":"이사야 10:5-19","2026-07-29":"이사야 10:20-34","2026-07-30":"이사야 11:1-16","2026-07-31":"이사야 12:1-6",
-  "2026-08-01":"이사야 13:1-22","2026-08-02":"이사야 14:1-23","2026-08-03":"이사야 14:24-15:9","2026-08-04":"이사야 16:1-14","2026-08-05":"이사야 17:1-14","2026-08-06":"이사야 18:1-19:15","2026-08-07":"이사야 19:16-20:6","2026-08-08":"이사야 21:1-17","2026-08-09":"이사야 22:1-25","2026-08-10":"이사야 23:1-18","2026-08-11":"이사야 24:1-13","2026-08-12":"이사야 24:14-23","2026-08-13":"이사야 25:1-12","2026-08-14":"이사야 26:1-27:1","2026-08-15":"이사야 27:2-13","2026-08-16":"이사야 28:1-13","2026-08-17":"이사야 28:14-29","2026-08-18":"이사야 29:1-14","2026-08-19":"이사야 29:15-24","2026-08-20":"이사야 30:1-17","2026-08-21":"이사야 30:18-33","2026-08-22":"이사야 31:1-9","2026-08-23":"이사야 32:1-20","2026-08-24":"이사야 33:1-24","2026-08-25":"이사야 34:1-17","2026-08-26":"이사야 35:1-10","2026-08-27":"이사야 36:1-22","2026-08-28":"이사야 37:1-20","2026-08-29":"이사야 37:21-38","2026-08-30":"이사야 38:1-22","2026-08-31":"이사야 39:1-8",
-  "2026-09-01":"사사기 1:1-10","2026-09-02":"사사기 1:11-21","2026-09-03":"사사기 1:22-36","2026-09-04":"사사기 2:1-10","2026-09-05":"사사기 2:11-23","2026-09-06":"사사기 3:1-11","2026-09-07":"사사기 3:12-31","2026-09-08":"사사기 4:1-10","2026-09-09":"사사기 4:11-24","2026-09-10":"사사기 5:1-18","2026-09-11":"사사기 5:19-31","2026-09-12":"사사기 6:1-10","2026-09-13":"사사기 6:11-24","2026-09-14":"사사기 6:25-40","2026-09-15":"사사기 7:1-14","2026-09-16":"사사기 7:15-25","2026-09-17":"사사기 8:1-21","2026-09-18":"사사기 8:22-35","2026-09-19":"사사기 9:1-6","2026-09-20":"사사기 9:7-21","2026-09-21":"사사기 9:22-45","2026-09-22":"사사기 9:46-57","2026-09-23":"사사기 10:1-18","2026-09-24":"사사기 11:1-11","2026-09-25":"사사기 11:12-28","2026-09-26":"사사기 11:29-40","2026-09-27":"사사기 12:1-15","2026-09-28":"사사기 13:1-14","2026-09-29":"사사기 13:15-25","2026-09-30":"사사기 14:1-20",
-  "2026-10-01":"사사기 15:1-20","2026-10-02":"사사기 16:1-14","2026-10-03":"사사기 16:15-31","2026-10-04":"사사기 17:1-13","2026-10-05":"사사기 18:1-20","2026-10-06":"사사기 18:21-31","2026-10-07":"사사기 19:1-10","2026-10-08":"사사기 19:11-21","2026-10-09":"사사기 19:22-30","2026-10-10":"사사기 20:1-7","2026-10-11":"사사기 20:8-28","2026-10-12":"사사기 20:29-48","2026-10-13":"사사기 21:1-12","2026-10-14":"사사기 21:13-25","2026-10-15":"야고보서 1:1-11","2026-10-16":"야고보서 1:12-18","2026-10-17":"야고보서 1:19-27","2026-10-18":"야고보서 2:1-13","2026-10-19":"야고보서 2:14-26","2026-10-20":"야고보서 3:1-12","2026-10-21":"야고보서 3:13-18","2026-10-22":"야고보서 4:1-12","2026-10-23":"야고보서 4:13-5:6","2026-10-24":"야고보서 5:7-12","2026-10-25":"야고보서 5:13-20","2026-10-26":"시편 16:1-11","2026-10-27":"시편 17:1-15","2026-10-28":"시편 18:1-15","2026-10-29":"시편 18:16-29","2026-10-30":"시편 18:30-50","2026-10-31":"시편 19:1-14",
-  "2026-11-01":"고린도후서 1:1-11","2026-11-02":"고린도후서 1:12-22","2026-11-03":"고린도후서 1:23-2:17","2026-11-04":"고린도후서 3:1-18","2026-11-05":"고린도후서 4:1-18","2026-11-06":"고린도후서 5:1-10","2026-11-07":"고린도후서 5:11-21","2026-11-08":"고린도후서 6:1-7:1","2026-11-09":"고린도후서 7:2-16","2026-11-10":"고린도후서 8:1-15","2026-11-11":"고린도후서 8:16-24","2026-11-12":"고린도후서 9:1-15","2026-11-13":"고린도후서 10:1-18","2026-11-14":"고린도후서 11:1-15","2026-11-15":"고린도후서 11:16-33","2026-11-16":"고린도후서 12:1-13","2026-11-17":"고린도후서 12:14-21","2026-11-18":"고린도후서 13:1-13","2026-11-19":"시편 20:1-9","2026-11-20":"시편 21:1-13","2026-11-21":"시편 22:1-21","2026-11-22":"시편 22:22-31","2026-11-23":"시편 23:1-6","2026-11-24":"시편 24:1-10","2026-11-25":"시편 25:1-22","2026-11-26":"이사야 40:1-11","2026-11-27":"이사야 40:12-31","2026-11-28":"이사야 41:1-20","2026-11-29":"이사야 41:21-29","2026-11-30":"이사야 42:1-25",
-  "2026-12-01":"이사야 43:1-13","2026-12-02":"이사야 43:14-28","2026-12-03":"이사야 44:1-20","2026-12-04":"이사야 44:21-45:7","2026-12-05":"이사야 45:8-17","2026-12-06":"이사야 45:18-25","2026-12-07":"이사야 46:1-13","2026-12-08":"이사야 47:1-15","2026-12-09":"이사야 48:1-11","2026-12-10":"이사야 48:12-22","2026-12-11":"이사야 49:1-13","2026-12-12":"이사야 49:14-50:3","2026-12-13":"이사야 50:4-51:8","2026-12-14":"이사야 51:9-16","2026-12-15":"이사야 51:17-52:12","2026-12-16":"이사야 52:13-53:12","2026-12-17":"이사야 54:1-17","2026-12-18":"이사야 55:1-13","2026-12-19":"이사야 56:1-8","2026-12-20":"이사야 56:9-57:13","2026-12-21":"이사야 57:14-21","2026-12-22":"이사야 58:1-14","2026-12-23":"이사야 59:1-21","2026-12-24":"이사야 60:1-22","2026-12-25":"이사야 61:1-11","2026-12-26":"이사야 62:1-12","2026-12-27":"이사야 63:1-14","2026-12-28":"이사야 63:15-64:12","2026-12-29":"이사야 65:1-16","2026-12-30":"이사야 65:17-25","2026-12-31":"이사야 66:1-24"
+var SCH={
+"2026-01-01":"창세기 1:1-13","2026-01-02":"창세기 1:14-25","2026-01-03":"창세기 1:26-2:3","2026-01-04":"창세기 2:4-25","2026-01-05":"창세기 3:1-13","2026-01-06":"창세기 3:14-24","2026-01-07":"창세기 4:1-26","2026-01-08":"창세기 5:1-32","2026-01-09":"창세기 6:1-22","2026-01-10":"창세기 7:1-24","2026-01-11":"창세기 8:1-22","2026-01-12":"창세기 9:1-17","2026-01-13":"창세기 9:18-29","2026-01-14":"창세기 10:1-32","2026-01-15":"창세기 11:1-9","2026-01-16":"창세기 11:10-30","2026-01-17":"창세기 11:31-12:9","2026-01-18":"창세기 12:10-20","2026-01-19":"창세기 13:1-18","2026-01-20":"창세기 14:1-24","2026-01-21":"창세기 15:1-21","2026-01-22":"창세기 16:1-16","2026-01-23":"창세기 17:1-27","2026-01-24":"창세기 18:1-15","2026-01-25":"창세기 18:16-33","2026-01-26":"창세기 19:1-11","2026-01-27":"창세기 19:12-23","2026-01-28":"창세기 19:24-38","2026-01-29":"창세기 20:1-18","2026-01-30":"창세기 21:1-21","2026-01-31":"창세기 21:22-34",
+"2026-02-01":"요한복음 1:1-18","2026-02-02":"요한복음 1:19-34","2026-02-03":"요한복음 1:35-51","2026-02-04":"요한복음 2:1-12","2026-02-05":"요한복음 2:13-25","2026-02-06":"요한복음 3:1-15","2026-02-07":"요한복음 3:16-21","2026-02-08":"요한복음 3:22-36","2026-02-09":"요한복음 4:1-14","2026-02-10":"요한복음 4:15-26","2026-02-11":"요한복음 4:27-42","2026-02-12":"요한복음 4:43-54","2026-02-13":"요한복음 5:1-15","2026-02-14":"요한복음 5:16-30","2026-02-15":"요한복음 5:31-47","2026-02-16":"요한복음 6:1-15","2026-02-17":"요한복음 6:16-29","2026-02-18":"요한복음 6:30-40","2026-02-19":"요한복음 6:41-59","2026-02-20":"요한복음 6:60-71","2026-02-21":"요한복음 7:1-13","2026-02-22":"요한복음 7:14-24","2026-02-23":"요한복음 7:25-36","2026-02-24":"요한복음 7:37-52","2026-02-25":"요한복음 7:53-8:20","2026-02-26":"요한복음 8:21-30","2026-02-27":"요한복음 8:31-41","2026-02-28":"요한복음 8:42-59",
+"2026-03-01":"요한복음 9:1-12","2026-03-02":"요한복음 9:13-23","2026-03-03":"요한복음 9:24-41","2026-03-04":"요한복음 10:1-21","2026-03-05":"요한복음 10:22-42","2026-03-06":"요한복음 11:1-16","2026-03-07":"요한복음 11:17-27","2026-03-08":"요한복음 11:28-37","2026-03-09":"요한복음 11:38-46","2026-03-10":"요한복음 11:47-57","2026-03-11":"요한복음 12:1-11","2026-03-12":"요한복음 12:12-19","2026-03-13":"요한복음 12:20-33","2026-03-14":"요한복음 12:34-43","2026-03-15":"요한복음 12:44-50","2026-03-16":"요한복음 13:1-17","2026-03-17":"요한복음 13:18-30","2026-03-18":"요한복음 13:31-38","2026-03-19":"요한복음 14:1-14","2026-03-20":"요한복음 14:15-21","2026-03-21":"요한복음 14:22-31","2026-03-22":"요한복음 15:1-17","2026-03-23":"요한복음 15:18-27","2026-03-24":"요한복음 16:1-15","2026-03-25":"요한복음 16:16-24","2026-03-26":"요한복음 16:25-33","2026-03-27":"요한복음 17:1-16","2026-03-28":"요한복음 17:17-26","2026-03-29":"요한복음 18:1-11","2026-03-30":"요한복음 18:12-27","2026-03-31":"요한복음 18:28-38",
+"2026-04-01":"요한복음 18:39-19:16","2026-04-02":"요한복음 19:17-27","2026-04-03":"요한복음 19:28-30","2026-04-04":"요한복음 19:31-42","2026-04-05":"요한복음 20:1-18","2026-04-06":"요한복음 20:19-31","2026-04-07":"요한복음 21:1-14","2026-04-08":"요한복음 21:15-25","2026-04-09":"창세기 22:1-24","2026-04-10":"창세기 23:1-20","2026-04-11":"창세기 24:1-27","2026-04-12":"창세기 24:28-49","2026-04-13":"창세기 24:50-67","2026-04-14":"창세기 25:1-18","2026-04-15":"창세기 25:19-34","2026-04-16":"창세기 26:1-11","2026-04-17":"창세기 26:12-33","2026-04-18":"창세기 26:34-27:14","2026-04-19":"창세기 27:15-29","2026-04-20":"창세기 27:30-46","2026-04-21":"창세기 28:1-22","2026-04-22":"창세기 29:1-20","2026-04-23":"창세기 29:21-35","2026-04-24":"창세기 30:1-24","2026-04-25":"창세기 30:25-43","2026-04-26":"창세기 31:1-16","2026-04-27":"창세기 31:17-35","2026-04-28":"창세기 31:36-55","2026-04-29":"창세기 32:1-21","2026-04-30":"창세기 32:22-32",
+"2026-05-01":"창세기 33:1-20","2026-05-02":"창세기 34:1-17","2026-05-03":"창세기 34:18-31","2026-05-04":"창세기 35:1-22","2026-05-05":"창세기 35:23-36:8","2026-05-06":"창세기 36:9-43","2026-05-07":"창세기 37:1-17","2026-05-08":"창세기 37:18-36","2026-05-09":"창세기 38:1-30","2026-05-10":"창세기 39:1-23","2026-05-11":"창세기 40:1-23","2026-05-12":"창세기 41:1-24","2026-05-13":"창세기 41:25-36","2026-05-14":"창세기 41:37-57","2026-05-15":"창세기 42:1-17","2026-05-16":"창세기 42:18-38","2026-05-17":"창세기 43:1-15","2026-05-18":"창세기 43:16-34","2026-05-19":"창세기 44:1-17","2026-05-20":"창세기 44:18-34","2026-05-21":"창세기 45:1-15","2026-05-22":"창세기 45:16-28","2026-05-23":"창세기 46:1-27","2026-05-24":"창세기 46:28-47:12","2026-05-25":"창세기 47:13-26","2026-05-26":"창세기 47:27-48:7","2026-05-27":"창세기 48:8-22","2026-05-28":"창세기 49:1-15","2026-05-29":"창세기 49:16-28","2026-05-30":"창세기 49:29-50:14","2026-05-31":"창세기 50:15-26",
+"2026-06-01":"고린도전서 1:1-9","2026-06-02":"고린도전서 1:10-17","2026-06-03":"고린도전서 1:18-31","2026-06-04":"고린도전서 2:1-16","2026-06-05":"고린도전서 3:1-15","2026-06-06":"고린도전서 3:16-4:5","2026-06-07":"고린도전서 4:6-21","2026-06-08":"고린도전서 5:1-13","2026-06-09":"고린도전서 6:1-11","2026-06-10":"고린도전서 6:12-20","2026-06-11":"고린도전서 7:1-24","2026-06-12":"고린도전서 7:25-40","2026-06-13":"고린도전서 8:1-13","2026-06-14":"고린도전서 9:1-23","2026-06-15":"고린도전서 9:24-10:13","2026-06-16":"고린도전서 10:14-11:1","2026-06-17":"고린도전서 11:2-16","2026-06-18":"고린도전서 11:17-34","2026-06-19":"고린도전서 12:1-11","2026-06-20":"고린도전서 12:12-31","2026-06-21":"고린도전서 13:1-13","2026-06-22":"고린도전서 14:1-19","2026-06-23":"고린도전서 14:20-40","2026-06-24":"고린도전서 15:1-11","2026-06-25":"고린도전서 15:12-19","2026-06-26":"고린도전서 15:20-34","2026-06-27":"고린도전서 15:35-49","2026-06-28":"고린도전서 15:50-58","2026-06-29":"고린도전서 16:1-12","2026-06-30":"고린도전서 16:13-24",
+"2026-07-01":"시편 1:1-6","2026-07-02":"시편 2:1-12","2026-07-03":"시편 3:1-8","2026-07-04":"시편 4:1-8","2026-07-05":"시편 5:1-12","2026-07-06":"시편 6:1-10","2026-07-07":"시편 7:1-17","2026-07-08":"시편 8:1-9","2026-07-09":"시편 9:1-20","2026-07-10":"시편 10:1-18","2026-07-11":"시편 11:1-7","2026-07-12":"시편 12:1-8","2026-07-13":"시편 13:1-6","2026-07-14":"시편 14:1-7","2026-07-15":"시편 15:1-5","2026-07-16":"이사야 1:1-20","2026-07-17":"이사야 1:21-31","2026-07-18":"이사야 2:1-22","2026-07-19":"이사야 3:1-12","2026-07-20":"이사야 3:13-4:6","2026-07-21":"이사야 5:1-17","2026-07-22":"이사야 5:18-30","2026-07-23":"이사야 6:1-13","2026-07-24":"이사야 7:1-25","2026-07-25":"이사야 8:1-22","2026-07-26":"이사야 9:1-7","2026-07-27":"이사야 9:8-10:4","2026-07-28":"이사야 10:5-19","2026-07-29":"이사야 10:20-34","2026-07-30":"이사야 11:1-16","2026-07-31":"이사야 12:1-6",
+"2026-08-01":"이사야 13:1-22","2026-08-02":"이사야 14:1-23","2026-08-03":"이사야 14:24-15:9","2026-08-04":"이사야 16:1-14","2026-08-05":"이사야 17:1-14","2026-08-06":"이사야 18:1-19:15","2026-08-07":"이사야 19:16-20:6","2026-08-08":"이사야 21:1-17","2026-08-09":"이사야 22:1-25","2026-08-10":"이사야 23:1-18","2026-08-11":"이사야 24:1-13","2026-08-12":"이사야 24:14-23","2026-08-13":"이사야 25:1-12","2026-08-14":"이사야 26:1-27:1","2026-08-15":"이사야 27:2-13","2026-08-16":"이사야 28:1-13","2026-08-17":"이사야 28:14-29","2026-08-18":"이사야 29:1-14","2026-08-19":"이사야 29:15-24","2026-08-20":"이사야 30:1-17","2026-08-21":"이사야 30:18-33","2026-08-22":"이사야 31:1-9","2026-08-23":"이사야 32:1-20","2026-08-24":"이사야 33:1-24","2026-08-25":"이사야 34:1-17","2026-08-26":"이사야 35:1-10","2026-08-27":"이사야 36:1-22","2026-08-28":"이사야 37:1-20","2026-08-29":"이사야 37:21-38","2026-08-30":"이사야 38:1-22","2026-08-31":"이사야 39:1-8",
+"2026-09-01":"사사기 1:1-10","2026-09-02":"사사기 1:11-21","2026-09-03":"사사기 1:22-36","2026-09-04":"사사기 2:1-10","2026-09-05":"사사기 2:11-23","2026-09-06":"사사기 3:1-11","2026-09-07":"사사기 3:12-31","2026-09-08":"사사기 4:1-10","2026-09-09":"사사기 4:11-24","2026-09-10":"사사기 5:1-18","2026-09-11":"사사기 5:19-31","2026-09-12":"사사기 6:1-10","2026-09-13":"사사기 6:11-24","2026-09-14":"사사기 6:25-40","2026-09-15":"사사기 7:1-14","2026-09-16":"사사기 7:15-25","2026-09-17":"사사기 8:1-21","2026-09-18":"사사기 8:22-35","2026-09-19":"사사기 9:1-6","2026-09-20":"사사기 9:7-21","2026-09-21":"사사기 9:22-45","2026-09-22":"사사기 9:46-57","2026-09-23":"사사기 10:1-18","2026-09-24":"사사기 11:1-11","2026-09-25":"사사기 11:12-28","2026-09-26":"사사기 11:29-40","2026-09-27":"사사기 12:1-15","2026-09-28":"사사기 13:1-14","2026-09-29":"사사기 13:15-25","2026-09-30":"사사기 14:1-20",
+"2026-10-01":"사사기 15:1-20","2026-10-02":"사사기 16:1-14","2026-10-03":"사사기 16:15-31","2026-10-04":"사사기 17:1-13","2026-10-05":"사사기 18:1-20","2026-10-06":"사사기 18:21-31","2026-10-07":"사사기 19:1-10","2026-10-08":"사사기 19:11-21","2026-10-09":"사사기 19:22-30","2026-10-10":"사사기 20:1-7","2026-10-11":"사사기 20:8-28","2026-10-12":"사사기 20:29-48","2026-10-13":"사사기 21:1-12","2026-10-14":"사사기 21:13-25","2026-10-15":"야고보서 1:1-11","2026-10-16":"야고보서 1:12-18","2026-10-17":"야고보서 1:19-27","2026-10-18":"야고보서 2:1-13","2026-10-19":"야고보서 2:14-26","2026-10-20":"야고보서 3:1-12","2026-10-21":"야고보서 3:13-18","2026-10-22":"야고보서 4:1-12","2026-10-23":"야고보서 4:13-5:6","2026-10-24":"야고보서 5:7-12","2026-10-25":"야고보서 5:13-20","2026-10-26":"시편 16:1-11","2026-10-27":"시편 17:1-15","2026-10-28":"시편 18:1-15","2026-10-29":"시편 18:16-29","2026-10-30":"시편 18:30-50","2026-10-31":"시편 19:1-14",
+"2026-11-01":"고린도후서 1:1-11","2026-11-02":"고린도후서 1:12-22","2026-11-03":"고린도후서 1:23-2:17","2026-11-04":"고린도후서 3:1-18","2026-11-05":"고린도후서 4:1-18","2026-11-06":"고린도후서 5:1-10","2026-11-07":"고린도후서 5:11-21","2026-11-08":"고린도후서 6:1-7:1","2026-11-09":"고린도후서 7:2-16","2026-11-10":"고린도후서 8:1-15","2026-11-11":"고린도후서 8:16-24","2026-11-12":"고린도후서 9:1-15","2026-11-13":"고린도후서 10:1-18","2026-11-14":"고린도후서 11:1-15","2026-11-15":"고린도후서 11:16-33","2026-11-16":"고린도후서 12:1-13","2026-11-17":"고린도후서 12:14-21","2026-11-18":"고린도후서 13:1-13","2026-11-19":"시편 20:1-9","2026-11-20":"시편 21:1-13","2026-11-21":"시편 22:1-21","2026-11-22":"시편 22:22-31","2026-11-23":"시편 23:1-6","2026-11-24":"시편 24:1-10","2026-11-25":"시편 25:1-22","2026-11-26":"이사야 40:1-11","2026-11-27":"이사야 40:12-31","2026-11-28":"이사야 41:1-20","2026-11-29":"이사야 41:21-29","2026-11-30":"이사야 42:1-25",
+"2026-12-01":"이사야 43:1-13","2026-12-02":"이사야 43:14-28","2026-12-03":"이사야 44:1-20","2026-12-04":"이사야 44:21-45:7","2026-12-05":"이사야 45:8-17","2026-12-06":"이사야 45:18-25","2026-12-07":"이사야 46:1-13","2026-12-08":"이사야 47:1-15","2026-12-09":"이사야 48:1-11","2026-12-10":"이사야 48:12-22","2026-12-11":"이사야 49:1-13","2026-12-12":"이사야 49:14-50:3","2026-12-13":"이사야 50:4-51:8","2026-12-14":"이사야 51:9-16","2026-12-15":"이사야 51:17-52:12","2026-12-16":"이사야 52:13-53:12","2026-12-17":"이사야 54:1-17","2026-12-18":"이사야 55:1-13","2026-12-19":"이사야 56:1-8","2026-12-20":"이사야 56:9-57:13","2026-12-21":"이사야 57:14-21","2026-12-22":"이사야 58:1-14","2026-12-23":"이사야 59:1-21","2026-12-24":"이사야 60:1-22","2026-12-25":"이사야 61:1-11","2026-12-26":"이사야 62:1-12","2026-12-27":"이사야 63:1-14","2026-12-28":"이사야 63:15-64:12","2026-12-29":"이사야 65:1-16","2026-12-30":"이사야 65:17-25","2026-12-31":"이사야 66:1-24"
 };
+
+/* 성경 책 번호 (bolls.life API용) */
+var BNUM={"창세기":1,"출애굽기":2,"레위기":3,"민수기":4,"신명기":5,"여호수아":6,"사사기":7,"룻기":8,"사무엘상":9,"사무엘하":10,"열왕기상":11,"열왕기하":12,"역대상":13,"역대하":14,"에스라":15,"느헤미야":16,"에스더":17,"욥기":18,"시편":19,"잠언":20,"전도서":21,"아가":22,"이사야":23,"예레미야":24,"예레미야애가":25,"에스겔":26,"다니엘":27,"호세아":28,"요엘":29,"아모스":30,"오바댜":31,"요나":32,"미가":33,"나훔":34,"하박국":35,"스바냐":36,"학개":37,"스가랴":38,"말라기":39,"마태복음":40,"마가복음":41,"누가복음":42,"요한복음":43,"사도행전":44,"로마서":45,"고린도전서":46,"고린도후서":47,"갈라디아서":48,"에베소서":49,"빌립보서":50,"골로새서":51,"데살로니가전서":52,"데살로니가후서":53,"디모데전서":54,"디모데후서":55,"디도서":56,"빌레몬서":57,"히브리서":58,"야고보서":59,"베드로전서":60,"베드로후서":61,"요한일서":62,"요한이서":63,"요한삼서":64,"유다서":65,"요한계시록":66};
 
 /* ── 날짜 ── */
 function todayKey(){ return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Seoul'}).format(new Date()); }
@@ -246,28 +177,21 @@ var _tt;
 function toast(msg){ var e=G('toastEl'); e.textContent=msg; e.classList.add('on'); clearTimeout(_tt); _tt=setTimeout(function(){ e.classList.remove('on'); },3500); }
 
 /* ── 카드 전환 ── */
-function showCard(name){
-  G('cInput').style.display='none';
-  G('cLoad').style.display='none';
-  G('cResult').style.display='none';
-  G(name).style.display='';
-}
+function showCard(name){ G('cInput').style.display='none'; G('cLoad').style.display='none'; G('cResult').style.display='none'; G(name).style.display=''; }
 
 /* ── API 키 ── */
-var SHARED_KEY = 'AQ.Ab8RN6Lpl0LdlGbsbCTF8bxrnEzOa1QRa7Qc4Sfae5INBUcaYA';
-function getKey(){ return localStorage.getItem('med_key') || SHARED_KEY; }
+var SHARED='AQ.Ab8RN6Lpl0LdlGbsbCTF8bxrnEzOa1QRa7Qc4Sfae5INBUcaYA';
+function getKey(){ return localStorage.getItem('med_key')||SHARED; }
 function saveKey(k){ localStorage.setItem('med_key',k); }
 
 /* ── 프롬프트 ── */
-var SYS = '너는 성경 원어(히브리어/헬라어)와 신학에 정통한 묵상 저자야. 한국어로, 목회적 따뜻함과 학문적 깊이를 함께 담아. 소제목/번호/마크다운 없이 자연스러운 문단으로만 써.';
+var SYS='너는 성경 원어(히브리어/헬라어)와 신학에 정통한 묵상 저자야. 한국어로, 목회적 따뜻함과 학문적 깊이를 함께 담아. 소제목/번호/마크다운 없이 자연스러운 문단으로만 써.';
 function medPrompt(p){ return '본문: '+p+'\n\n배경(2문장), 핵심 원어 1개 분석(발음+철자 포함), 신학적 의미(2문단), 오늘의 적용 질문(1문단), 기도(2문장). 700자 내외.'; }
-function biblePrompt(p){ return p+' 본문을 개역개정으로 절 번호와 함께 전체 써줘. 본문만, 설명 없이.'; }
 
 /* ── Anthropic API ── */
-function callAnthropic(prompt, sys){
+function callAnthropic(prompt,sys){
   return fetch('https://api.anthropic.com/v1/messages',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
+    method:'POST',headers:{'Content-Type':'application/json'},
     body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:2048,system:sys||SYS,messages:[{role:'user',content:prompt}]})
   }).then(function(r){
     if(!r.ok) throw new Error('ant-'+r.status);
@@ -279,153 +203,177 @@ function callAnthropic(prompt, sys){
   });
 }
 
-/* ── Gemini API ── */
-var GEMINI_MODELS = ['gemini-2.0-flash','gemini-2.5-flash','gemini-1.5-flash'];
-function callGemini(prompt, sys){
-  var key = getKey();
-  if(!key) return Promise.reject(new Error('no-key'));
-  var sysText = sys || SYS;
+/* ── Gemini API (모델 자동 탐색) ── */
+var GMODELS=['gemini-2.0-flash-exp','gemini-2.0-flash','gemini-1.5-flash-latest','gemini-1.5-flash','gemini-1.5-pro-latest'];
+var _foundModel=null;
 
-  function tryModel(i){
-    if(i>=GEMINI_MODELS.length) return Promise.reject(new Error('all-models-failed'));
-    var model = GEMINI_MODELS[i];
-    var url = 'https://generativelanguage.googleapis.com/v1beta/models/'+model+':generateContent?key='+key;
-    return fetch(url,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
+function callGemini(prompt,sys){
+  var key=getKey();
+  if(!key) return Promise.reject(new Error('no-key'));
+  var models=_foundModel?[_foundModel].concat(GMODELS):GMODELS;
+  function tryM(i){
+    if(i>=models.length) return Promise.reject(new Error('gemini-all-failed'));
+    var model=models[i];
+    var url='https://generativelanguage.googleapis.com/v1beta/models/'+model+':generateContent?key='+key;
+    return fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        systemInstruction:{parts:[{text:sysText}]},
+        systemInstruction:{parts:[{text:sys||SYS}]},
         contents:[{parts:[{text:prompt}]}],
         generationConfig:{temperature:0.8,maxOutputTokens:2048}
       })
     }).then(function(r){
-      if(r.status===403||r.status===401) throw new Error('bad-key');
-      if(r.status===404) return tryModel(i+1);
-      if(!r.ok) return tryModel(i+1);
+      if(r.status===401||r.status===403) throw new Error('bad-key');
+      if(!r.ok) return tryM(i+1);
       return r.json().then(function(d){
-        var fin = d.candidates&&d.candidates[0]&&d.candidates[0].finishReason;
-        var t = d.candidates&&d.candidates[0]&&d.candidates[0].content&&d.candidates[0].content.parts&&d.candidates[0].content.parts[0]&&d.candidates[0].content.parts[0].text||'';
-        if(fin==='MAX_TOKENS') return tryModel(i+1);
-        if(t&&t.length>100) return t.trim();
-        return tryModel(i+1);
+        var fin=d.candidates&&d.candidates[0]&&d.candidates[0].finishReason;
+        var t=d.candidates&&d.candidates[0]&&d.candidates[0].content&&d.candidates[0].content.parts&&d.candidates[0].content.parts[0]&&d.candidates[0].content.parts[0].text||'';
+        if(fin==='MAX_TOKENS'||!t||t.length<80) return tryM(i+1);
+        _foundModel=model;
+        return t.trim();
       });
-    }).catch(function(e){
-      if(e.message==='bad-key') throw e;
-      return tryModel(i+1);
+    }).catch(function(e){ if(e.message==='bad-key') throw e; return tryM(i+1); });
+  }
+  return tryM(0);
+}
+
+function callAPI(prompt,sys){
+  return callAnthropic(prompt,sys).catch(function(){ return callGemini(prompt,sys); });
+}
+
+/* ── 성경 본문 가져오기 (bolls.life 무료 API) ── */
+function parseRef(ref){
+  var m=ref.match(/^(.+?)\s+(\d+):(\d+)(?:-(\d+))?/);
+  if(!m) return null;
+  return {book:m[1].trim(),ch:parseInt(m[2]),vs:parseInt(m[3]),ve:parseInt(m[4]||m[3])};
+}
+
+var BABBR={"창세기":"창","출애굽기":"출","레위기":"레","민수기":"민","신명기":"신","여호수아":"수","사사기":"삿","룻기":"룻","사무엘상":"삼상","사무엘하":"삼하","열왕기상":"왕상","열왕기하":"왕하","역대상":"대상","역대하":"대하","에스라":"스","느헤미야":"느","에스더":"에","욥기":"욥","시편":"시","잠언":"잠","전도서":"전","아가":"아","이사야":"사","예레미야":"렘","예레미야애가":"애","에스겔":"겔","다니엘":"단","호세아":"호","요엘":"욜","아모스":"암","오바댜":"옵","요나":"욘","미가":"미","나훔":"나","하박국":"합","스바냐":"습","학개":"학","스가랴":"슥","말라기":"말","마태복음":"마","마가복음":"막","누가복음":"눅","요한복음":"요","사도행전":"행","로마서":"롬","고린도전서":"고전","고린도후서":"고후","갈라디아서":"갈","에베소서":"엡","빌립보서":"빌","골로새서":"골","데살로니가전서":"살전","데살로니가후서":"살후","디모데전서":"딤전","디모데후서":"딤후","디도서":"딛","빌레몬서":"몬","히브리서":"히","야고보서":"약","베드로전서":"벧전","베드로후서":"벧후","요한일서":"요일","요한이서":"요이","요한삼서":"요삼","유다서":"유","요한계시록":"계"};
+function fetchBibleText(ref){
+  var p=parseRef(ref);
+  if(!p) return Promise.reject(new Error('parse'));
+
+  /* 1순위: bible.js 로컬 데이터 (같은 폴더에 bible.js 있을 때) */
+  if(typeof BDATA!=='undefined'){
+    var abbr=BABBR[p.book];
+    if(abbr){
+      var arr=BDATA[abbr+p.ch];
+      if(arr&&arr.length){
+        var lines=[];
+        for(var v=p.vs;v<=p.ve;v++){
+          if(arr[v-1]) lines.push(v+'  '+arr[v-1]);
+        }
+        if(lines.length) return Promise.resolve(lines.join('\n'));
+      }
+    }
+  }
+
+  /* 2순위: getbible.net 무료 API */
+  var bn=BNUM[p.book];
+  if(!bn) return Promise.reject(new Error('no-book'));
+  function tryG(tr){
+    var url='https://getbible.net/v2/'+tr+'/'+bn+'/'+p.ch+'.json';
+    return fetch(url).then(function(r){
+      if(!r.ok) throw new Error(r.status);
+      return r.json();
+    }).then(function(d){
+      var lines=[];
+      for(var v=p.vs;v<=p.ve;v++){
+        var vd=d.verses&&d.verses[String(v)];
+        if(vd&&vd.text) lines.push(v+'  '+vd.text.trim());
+      }
+      if(!lines.length) throw new Error('empty');
+      return lines.join('\n');
     });
   }
-  return tryModel(0);
-}
-
-/* ── API 호출 (Anthropic 먼저, 실패시 Gemini) ── */
-function callAPI(prompt, sys){
-  return callAnthropic(prompt, sys).catch(function(){
-    return callGemini(prompt, sys);
-  });
-}
-
-/* ── 저장소 ── */
-var arc = {};
-var SKEY = 'med_arc_v1';
-function loadArc(){
-  try{ if(window.storage){ return window.storage.get(SKEY).then(function(r){ return r&&r.value?JSON.parse(r.value):{}; }).catch(function(){ return {}; }); } }catch(e){}
-  try{ var v=localStorage.getItem(SKEY); return Promise.resolve(v?JSON.parse(v):{}); }catch(e){ return Promise.resolve({}); }
-}
-function saveArc(){
-  var s = JSON.stringify(arc);
-  try{ if(window.storage){ window.storage.set(SKEY,s).catch(function(){}); } }catch(e){}
-  try{ localStorage.setItem(SKEY,s); }catch(e){}
+  return tryG('korean').catch(function(){ return tryG('kor'); });
 }
 
 /* ── HTML 변환 ── */
 function toHTML(t){
-  return t.replace(/\\n/g,'\n').split(/\n+/).filter(Boolean).map(function(p){
-    return '<p>'+p.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>')+'</p>';
+  return (t||'').replace(/\\n/g,'\n').split(/\n+/).filter(Boolean).map(function(p){
+    return '<p>'+p.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</p>';
   }).join('');
 }
 
-/* ── 묵상 생성 ── */
-function generate(passage){
-  showCard('cLoad');
-  G('loadMsg').textContent = '묵상을 쓰는 중...';
-  return callAPI(medPrompt(passage)).then(function(text){
-    var entry = {date:todayKey(),reference:passage,meditation:text,savedAt:Date.now()};
-    arc[entry.date] = entry;
-    saveArc();
-    renderArc();
-    renderEntry(entry,true);
-    // 묵상 보는 즉시 내일 묵상 백그라운드 생성
-    setTimeout(prefetchTomorrow, 3000);
-  }).catch(function(e){
-    if(e.message==='bad-key'||e.message==='no-key'){
-      showSetup('API 키가 올바르지 않아요.');
-    } else {
-      showCard('cInput');
-      toast('오류가 발생했어요: '+e.message);
-    }
-  });
+/* ── 저장소 ── */
+var arc={};
+var SK='med_arc_3';
+function loadArc(){
+  try{ if(window.storage){ return window.storage.get(SK).then(function(r){return r&&r.value?JSON.parse(r.value):{};}).catch(function(){return {};}); } }catch(e){}
+  try{ var v=localStorage.getItem(SK); return Promise.resolve(v?JSON.parse(v):{}); }catch(e){ return Promise.resolve({}); }
 }
-
-/* ── 내일 묵상 프리패치 ── */
-function prefetchTomorrow(){
-  var key = tomorrowKey();
-  if(arc[key]) return; // 이미 있으면 스킵
-  var passage = SCH[key];
-  if(!passage) return;
-  callAPI(medPrompt(passage)).then(function(text){
-    var entry = {date:key,reference:passage,meditation:text,savedAt:Date.now(),pre:true};
-    arc[key] = entry;
-    saveArc();
-    renderArc();
-    toast('내일 묵상이 준비됐어요 ✓');
-  }).catch(function(){});
+function saveArc(){
+  var s=JSON.stringify(arc);
+  try{ if(window.storage) window.storage.set(SK,s).catch(function(){}); }catch(e){}
+  try{ localStorage.setItem(SK,s); }catch(e){}
 }
 
 /* ── 렌더링 ── */
-function renderEntry(entry, isToday){
-  G('rRef').textContent = entry.reference||'오늘의 묵상';
-  G('rSeal').textContent = sealTxt(entry.date);
-  G('rText').innerHTML = toHTML(entry.meditation||'');
-  G('btnBack').style.display = isToday?'none':'block';
+function renderEntry(e,isToday){
+  G('rRef').textContent=e.reference||'오늘의 묵상';
+  G('rSeal').textContent=sealTxt(e.date);
+  G('rText').innerHTML=toHTML(e.meditation||'');
+  G('btnBack').style.display=isToday?'none':'block';
   showCard('cResult');
 }
 
 function renderTomorrow(){
-  var key = tomorrowKey();
-  var entry = arc[key];
-  var el = G('tomorrowContent');
-  if(entry){
-    var badge = entry.pre ? '<span style="font-size:11px;color:var(--acc);background:rgba(138,90,62,0.12);padding:2px 8px;border-radius:999px;margin-left:8px;">미리 받음</span>' : '';
-    el.innerHTML = '<div style="margin-bottom:14px;"><span style="font-family:\'Noto Serif KR\',serif;font-size:17px;font-weight:600;">'+entry.reference+'</span>'+badge+'</div><div class="med-text">'+toHTML(entry.meditation)+'</div>';
+  var k=tomorrowKey(),e=arc[k],el=G('tmrContent');
+  if(e){
+    el.innerHTML='<div style="font-family:Noto Serif KR,serif;font-size:16px;font-weight:600;margin-bottom:12px;">'+e.reference+'</div><div class="med">'+toHTML(e.meditation)+'</div>';
   } else {
-    var p2 = SCH[key];
-    if(p2){
-      el.innerHTML = '<div class="tomorrow-empty"><p>내일 본문: <strong>'+p2+'</strong></p><button class="btn btn-dark" id="btnPrefetchNow">지금 미리 받기</button></div>';
-      G('btnPrefetchNow').onclick = function(){
-        el.innerHTML = '<p style="color:var(--ink-soft);font-size:14px;text-align:center;padding:20px 0;">생성 중...</p>';
-        prefetchTomorrow();
-        setTimeout(renderTomorrow, 15000);
+    var p=SCH[k];
+    if(p){
+      el.innerHTML='<div style="text-align:center;padding:18px 0;"><p style="color:var(--soft);font-size:14px;margin:0 0 12px;">내일 본문: <strong>'+p+'</strong></p><button class="btn btn-dark" id="btnFetchTmr">지금 미리 받기</button></div>';
+      G('btnFetchTmr').onclick=function(){
+        el.innerHTML='<p style="color:var(--soft);font-size:14px;text-align:center;padding:20px;">생성 중...</p>';
+        prefetchTomorrow(true);
       };
     } else {
-      el.innerHTML = '<p style="color:var(--ink-soft);font-size:14px;text-align:center;padding:20px 0;">내일 본문 정보가 없어요.</p>';
+      el.innerHTML='<p style="color:var(--soft);font-size:14px;text-align:center;padding:18px 0;">내일 본문 정보가 없어요.</p>';
     }
   }
 }
 
 function renderArc(){
-  var list=G('arcList'), empty=G('arcEmpty');
-  var keys=Object.keys(arc).filter(function(k){ return k!==tomorrowKey(); }).sort().reverse();
+  var list=G('arcList'),empty=G('arcEmpty'),tmr=tomorrowKey();
+  var keys=Object.keys(arc).filter(function(k){return k!==tmr;}).sort().reverse();
   list.innerHTML='';
   if(!keys.length){ empty.style.display='block'; return; }
   empty.style.display='none';
   keys.forEach(function(k){
-    var e=arc[k];
-    var btn=document.createElement('button');
+    var e=arc[k],btn=document.createElement('button');
     btn.className='arc-item';
     btn.innerHTML='<span class="seal">'+sealTxt(k)+'</span><span class="meta"><p class="a-dt">'+keyLabel(k)+'</p><p class="a-ref">'+(e.reference||'묵상')+'</p></span>';
     btn.onclick=function(){ setTab('today'); renderEntry(e,k===todayKey()); };
     list.appendChild(btn);
   });
+}
+
+/* ── 묵상 생성 ── */
+function generate(passage){
+  showCard('cLoad');
+  G('loadMsg').textContent='묵상을 준비하는 중...';
+  return callAPI(medPrompt(passage)).then(function(text){
+    var entry={date:todayKey(),reference:passage,meditation:text,savedAt:Date.now()};
+    arc[entry.date]=entry; saveArc(); renderArc(); renderEntry(entry,true);
+    setTimeout(function(){ prefetchTomorrow(false); },4000);
+  }).catch(function(e){
+    if(e.message==='bad-key'||e.message==='no-key'){ showSetup('API 키가 올바르지 않아요.'); }
+    else { showCard('cInput'); toast('오류: '+e.message); }
+  });
+}
+
+/* ── 내일 프리패치 ── */
+function prefetchTomorrow(showToast){
+  var k=tomorrowKey();
+  if(arc[k]) return;
+  var p=SCH[k]; if(!p) return;
+  callAPI(medPrompt(p)).then(function(text){
+    arc[k]={date:k,reference:p,meditation:text,savedAt:Date.now(),pre:true};
+    saveArc(); renderArc();
+    if(showToast){ renderTomorrow(); toast('내일 묵상이 준비됐어요!'); }
+  }).catch(function(){});
 }
 
 /* ── 탭 ── */
@@ -441,78 +389,55 @@ G('tToday').onclick=function(){ setTab('today'); };
 G('tTomorrow').onclick=function(){ renderTomorrow(); setTab('tomorrow'); };
 G('tArc').onclick=function(){ renderArc(); setTab('arc'); };
 
-/* ── 버튼 이벤트 ── */
-G('btnGen').onclick=function(){
-  var p=SCH[todayKey()];
-  if(p) generate(p); else toast('오늘 본문이 없어요. 아래에 직접 입력해주세요.');
-};
-G('btnGenCustom').onclick=function(){
-  var v=G('txPassage').value.trim();
-  if(!v){ toast('본문을 입력해주세요.'); return; }
-  generate(v);
-};
-G('btnRegen').onclick=function(){
-  var e=arc[todayKey()];
-  if(e) generate(e.reference);
-};
-G('btnNew').onclick=function(){
-  G('txPassage').value='';
-  showCard('cInput');
-};
-G('btnBack').onclick=function(){
-  var e=arc[todayKey()];
-  if(e) renderEntry(e,true); else showCard('cInput');
-};
+/* ── 버튼 ── */
+G('btnGen').onclick=function(){ var p=SCH[todayKey()]; if(p) generate(p); else toast('오늘 본문이 없어요. 직접 입력해주세요.'); };
+G('btnGenCustom').onclick=function(){ var v=G('txPassage').value.trim(); if(!v){ toast('본문을 입력해주세요.'); return; } generate(v); };
+G('btnRegen').onclick=function(){ var e=arc[todayKey()]; if(e) generate(e.reference); };
+G('btnNew').onclick=function(){ G('txPassage').value=''; showCard('cInput'); };
+G('btnBack').onclick=function(){ var e=arc[todayKey()]; if(e) renderEntry(e,true); else showCard('cInput'); };
 
-/* ── 성경 본문 보기 ── */
+/* ── 성경 본문 버튼 ── */
 G('btnBible').onclick=function(){
-  var passage = (arc[todayKey()]&&arc[todayKey()].reference) || SCH[todayKey()];
-  if(!passage) return;
-  G('bibleRef').textContent = passage;
-  G('bibleContent').innerHTML = '<p style="color:var(--ink-soft);text-align:center;padding:20px 0;">본문을 불러오는 중...</p>';
+  var p=(arc[todayKey()]&&arc[todayKey()].reference)||SCH[todayKey()];
+  if(!p) return;
+  G('bibleRef').textContent=p+' (개역한글)';
+  G('bibleContent').innerHTML='<p style="color:var(--soft);text-align:center;padding:18px 0;">본문을 불러오는 중...</p>';
   G('bibleModal').style.display='block';
-  callAPI(biblePrompt(passage), '너는 성경 본문을 정확하게 제공하는 도우미야. 요청한 본문만 써줘.').then(function(text){
-    G('bibleContent').innerHTML = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').split('\n').filter(Boolean).map(function(v){ return '<p>'+v+'</p>'; }).join('');
-  }).catch(function(){
-    G('bibleContent').innerHTML = '<p style="color:var(--ink-soft);">본문을 불러오지 못했어요.</p>';
-  });
+  fetchBibleText(p)
+    .then(function(t){
+      G('bibleContent').innerHTML=t.split('\n').filter(Boolean).map(function(v){
+        return '<p>'+v.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</p>';
+      }).join('');
+    })
+    .catch(function(){
+      G('bibleContent').innerHTML='<p style="color:var(--soft);text-align:center;padding:14px 0;">본문을 불러오지 못했어요.<br><br><a href="https://sum.su.or.kr:8888/bible/today" target="_blank" style="color:var(--acc);">매일성경 사이트에서 보기 →</a></p>';
+    });
 };
 G('bibleClose').onclick=function(){ G('bibleModal').style.display='none'; };
-G('bibleModal').onclick=function(e){ if(e.target===G('bibleModal')) G('bibleModal').style.display='none'; };
+G('bibleModal').onclick=function(ev){ if(ev.target===G('bibleModal')) G('bibleModal').style.display='none'; };
 
-/* ── 키 설정 ── */
-function showSetup(msg){
-  G('setupMsg').textContent=msg||'';
-  G('setupBg').style.display='flex';
-}
+/* ── 설정 ── */
+function showSetup(msg){ G('setupErr').textContent=msg||''; G('setupBg').style.display='flex'; }
 G('keySaveBtn').onclick=function(){
-  var v=G('keyInput').value.trim();
+  var v=G('keyInp').value.trim();
   if(v.length<10){ toast('키를 올바르게 입력해주세요.'); return; }
-  saveKey(v);
-  G('setupBg').style.display='none';
-  var p=SCH[todayKey()];
-  if(p) generate(p); else showCard('cInput');
+  saveKey(v); _foundModel=null; G('setupBg').style.display='none';
+  var p=SCH[todayKey()]; if(p) generate(p); else showCard('cInput');
 };
 
 /* ── 부팅 ── */
-G('dtLine').textContent = todayLabel();
-var todayPassage = SCH[todayKey()];
-G('pbRef').textContent = todayPassage||'날짜 범위 외';
+G('dtLine').textContent=todayLabel();
+var tp=SCH[todayKey()];
+G('pbRef').textContent=tp||'날짜 범위 외';
 
 loadArc().then(function(saved){
-  arc = saved||{};
+  arc=saved||{};
   renderArc();
-  var todayEntry = arc[todayKey()];
-  if(todayEntry){
-    renderEntry(todayEntry,true);
-    setTimeout(prefetchTomorrow,3000);
-  } else if(todayPassage){
-    generate(todayPassage);
-  } else {
-    showCard('cInput');
-  }
+  var te=arc[todayKey()];
+  if(te){ renderEntry(te,true); setTimeout(function(){ prefetchTomorrow(false); },4000); }
+  else if(tp){ generate(tp); }
+  else { showCard('cInput'); }
 });
-
 })();
 </script>
 </body>
