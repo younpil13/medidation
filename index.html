@@ -2,20 +2,20 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 <title>오늘의 묵상</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
 <style>
 :root{--ink:#262b3d;--soft:#5b5f74;--paper:#f8f3e7;--edge:#e7dcc1;--line:#e2d6b8;--bg:#f5efe0;--acc:#8a5a3e;--s1:#c1453a;--s2:#7c2620;--r:18px;--sh:0 14px 36px -10px rgba(40,28,12,.26);}
 *{box-sizing:border-box;}html,body{margin:0;padding:0;}
-body{background:var(--bg);color:var(--ink);font-family:'Noto Sans KR',sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh;}
+body{background:var(--bg);color:var(--ink);font-family:"Noto Sans KR",sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh;}
 .hero{position:relative;overflow:hidden;padding:36px 20px 52px;background:linear-gradient(180deg,#1a2148 0%,#3d3460 32%,#8a5a63 62%,#e3a753 100%);text-align:center;}
 .hero::after{content:"";position:absolute;inset:0;top:auto;height:44%;background:linear-gradient(180deg,transparent,var(--bg));pointer-events:none;}
 .eyebrow{position:relative;z-index:2;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#f6dfb0;font-weight:600;margin:0 0 8px;}
-.hero h1{position:relative;z-index:2;font-family:'Noto Serif KR',serif;font-size:clamp(24px,7vw,34px);color:#fffaf0;margin:0 0 6px;}
+.hero h1{position:relative;z-index:2;font-family:"Noto Serif KR",serif;font-size:clamp(24px,7vw,34px);color:#fffaf0;margin:0 0 6px;}
 .hero .dt{position:relative;z-index:2;font-size:13px;color:#f4e8d2;margin:0;}
-.sun-wrap{position:absolute;left:0;right:0;bottom:12px;height:56px;display:flex;justify-content:center;pointer-events:none;}
-.horizon{position:absolute;left:0;right:0;bottom:28px;height:1px;background:rgba(255,247,222,.3);}
+.sun-w{position:absolute;left:0;right:0;bottom:12px;height:56px;display:flex;justify-content:center;pointer-events:none;}
+.hor{position:absolute;left:0;right:0;bottom:28px;height:1px;background:rgba(255,247,222,.3);}
 .sun{width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff3d6,#f3b35a 55%,#d98a3e);box-shadow:0 0 32px 6px rgba(243,179,90,.5);transform:translateY(44px);opacity:0;animation:rise 2.2s cubic-bezier(.22,.9,.32,1) .2s forwards;}
 @keyframes rise{to{transform:translateY(0);opacity:1;}}
 .wrap{max-width:540px;margin:-28px auto 56px;padding:0 16px;position:relative;z-index:3;}
@@ -27,50 +27,48 @@ body{background:var(--bg);color:var(--ink);font-family:'Noto Sans KR',sans-serif
 .card+.card{margin-top:12px;}
 .lbl{font-size:12px;font-weight:700;color:var(--acc);letter-spacing:.05em;margin:0 0 12px;text-transform:uppercase;}
 .banner{background:linear-gradient(135deg,#1f2750,#3d3460);border-radius:13px;padding:15px 17px;margin-bottom:14px;display:flex;align-items:center;gap:12px;}
-.banner-icon{font-size:24px;flex:none;}
-.banner-ref{font-family:'Noto Serif KR',serif;font-size:16px;font-weight:700;color:#fffaf0;margin:0 0 2px;}
-.banner-note{font-size:11px;color:#b8c4e8;margin:0;}
+.bicon{font-size:24px;flex:none;}
+.bref{font-family:"Noto Serif KR",serif;font-size:16px;font-weight:700;color:#fffaf0;margin:0 0 2px;}
+.bnote{font-size:11px;color:#b8c4e8;margin:0;}
 .row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
 .btn{font-family:inherit;font-weight:600;font-size:14px;border-radius:11px;padding:11px 15px;border:none;cursor:pointer;transition:.12s;}
 .btn:active{transform:translateY(1px);}.btn:disabled{opacity:.4;cursor:default;}
-.btn-dark{background:var(--ink);color:#fdf6e8;flex:1;}
-.btn-lite{background:transparent;color:var(--acc);border:1px solid var(--line);}
-.btn-lite:hover:not(:disabled){background:rgba(138,90,62,.08);}
+.btn-d{background:var(--ink);color:#fdf6e8;flex:1;}
+.btn-l{background:transparent;color:var(--acc);border:1px solid var(--line);}
+.btn-l:hover:not(:disabled){background:rgba(138,90,62,.08);}
 .hint{font-size:12px;color:var(--soft);line-height:1.6;margin:10px 0 0;}.hint a{color:var(--acc);}
 textarea{width:100%;min-height:88px;resize:vertical;border:1.5px solid var(--line);border-radius:11px;background:#fffdf7;padding:11px;font-family:inherit;font-size:14px;line-height:1.7;color:var(--ink);margin-top:9px;}
 textarea:focus{outline:none;border-color:var(--acc);}textarea::placeholder{color:#b0a890;}
-.spin-wrap{text-align:center;padding:26px 10px;}
-.spinner{width:30px;height:30px;margin:0 auto 10px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--acc);animation:spin .85s linear infinite;}
+.sw{text-align:center;padding:26px 10px;}
+.sp{width:30px;height:30px;margin:0 auto 10px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--acc);animation:spin .85s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
-.spin-wrap p{color:var(--soft);font-size:14px;margin:0;}
-.r-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px;}
-.r-ref{font-family:'Noto Serif KR',serif;font-size:17px;font-weight:600;margin:0;}
-.seal{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--s1),var(--s2));color:#fdf3e6;font-family:'Noto Serif KR',serif;font-weight:700;font-size:11px;transform:rotate(-9deg);box-shadow:0 2px 8px rgba(90,30,20,.3);flex:none;}
+.sw p{color:var(--soft);font-size:14px;margin:0;}
+.rh{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px;}
+.rref{font-family:"Noto Serif KR",serif;font-size:17px;font-weight:600;margin:0;}
+.seal{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--s1),var(--s2));color:#fdf3e6;font-family:"Noto Serif KR",serif;font-weight:700;font-size:11px;transform:rotate(-9deg);box-shadow:0 2px 8px rgba(90,30,20,.3);flex:none;}
 .med{font-size:15px;line-height:1.95;}.med p{margin:0 0 14px;}
-.divider{height:1px;background:var(--line);margin:16px 0 13px;border:none;}
+.div{height:1px;background:var(--line);margin:16px 0 13px;border:none;}
 .src{font-size:11px;color:var(--soft);margin-top:11px;}.src a{color:var(--acc);}
-.back-btn{background:none;border:none;cursor:pointer;color:var(--acc);font-size:13px;font-weight:600;margin-bottom:11px;padding:0;display:block;}
-.arc-empty{text-align:center;color:var(--soft);font-size:14px;padding:18px 0;}
-.arc-item{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:#fffdf7;border:1px solid var(--line);border-radius:11px;padding:10px 13px;margin-bottom:8px;cursor:pointer;font-family:inherit;}
-.arc-item:hover{border-color:var(--acc);}
-.arc-item .seal{width:30px;height:30px;font-size:10px;}
-.arc-item .meta{flex:1;min-width:0;}
-.arc-item .a-dt{font-size:11px;color:var(--soft);margin:0 0 2px;}
-.arc-item .a-ref{font-size:13px;font-weight:600;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9000;overflow-y:auto;padding:20px 14px;display:none;}
-.modal-box{background:var(--paper);border-radius:var(--r);max-width:520px;margin:0 auto;padding:22px 18px;}
-.modal-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;}
-.modal-top h3{font-family:'Noto Serif KR',serif;font-size:16px;margin:0;}
-.modal-close{background:none;border:none;font-size:21px;cursor:pointer;color:var(--soft);padding:2px 5px;line-height:1;}
-.bible-text{font-size:14px;line-height:2.1;color:var(--ink);}.bible-text p{margin:0 0 3px;}
-.setup-bg{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;}
-.setup-box{background:var(--paper);border:1px solid var(--edge);border-radius:var(--r);box-shadow:var(--sh);padding:28px 22px;width:100%;max-width:400px;}
-.setup-box h2{font-family:'Noto Serif KR',serif;font-size:19px;margin:0 0 6px;}
-.errmsg{color:#c1453a;font-size:13px;font-weight:600;min-height:16px;margin:0 0 10px;}
-.setup-box p{font-size:13px;color:var(--soft);line-height:1.7;margin:0 0 13px;}.setup-box a{color:var(--acc);}
-.key-inp{width:100%;border:1.5px solid var(--line);border-radius:11px;background:#fffdf7;padding:11px 13px;font-family:monospace;font-size:13px;color:var(--ink);margin-bottom:9px;}
-.key-inp:focus{outline:none;border-color:var(--acc);}
-.key-note{font-size:11px;color:var(--soft);margin:9px 0 0;line-height:1.5;}
+.bk{background:none;border:none;cursor:pointer;color:var(--acc);font-size:13px;font-weight:600;margin-bottom:11px;padding:0;display:block;}
+.ae{text-align:center;color:var(--soft);font-size:14px;padding:18px 0;}
+.ai{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:#fffdf7;border:1px solid var(--line);border-radius:11px;padding:10px 13px;margin-bottom:8px;cursor:pointer;font-family:inherit;}
+.ai:hover{border-color:var(--acc);}.ai .seal{width:30px;height:30px;font-size:10px;}
+.ai .mt{flex:1;min-width:0;}.ai .adt{font-size:11px;color:var(--soft);margin:0 0 2px;}
+.ai .arf{font-size:13px;font-weight:600;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mb{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9000;overflow-y:auto;padding:20px 14px;display:none;}
+.mbox{background:var(--paper);border-radius:var(--r);max-width:520px;margin:0 auto;padding:22px 18px;}
+.mtop{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;}
+.mtop h3{font-family:"Noto Serif KR",serif;font-size:16px;margin:0;}
+.mclose{background:none;border:none;font-size:21px;cursor:pointer;color:var(--soft);padding:2px 5px;line-height:1;}
+.btext{font-size:14px;line-height:2.1;color:var(--ink);}.btext p{margin:0 0 3px;}
+.sb{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;}
+.sbox{background:var(--paper);border:1px solid var(--edge);border-radius:var(--r);box-shadow:var(--sh);padding:28px 22px;width:100%;max-width:400px;}
+.sbox h2{font-family:"Noto Serif KR",serif;font-size:19px;margin:0 0 6px;}
+.em{color:#c1453a;font-size:13px;font-weight:600;min-height:16px;margin:0 0 10px;}
+.sbox p{font-size:13px;color:var(--soft);line-height:1.7;margin:0 0 13px;}.sbox a{color:var(--acc);}
+.ki{width:100%;border:1.5px solid var(--line);border-radius:11px;background:#fffdf7;padding:11px 13px;font-family:monospace;font-size:13px;color:var(--ink);margin-bottom:9px;}
+.ki:focus{outline:none;border-color:var(--acc);}
+.kn{font-size:11px;color:var(--soft);margin:9px 0 0;line-height:1.5;}
 .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(14px);background:var(--ink);color:#fdf6e8;font-size:13px;padding:10px 18px;border-radius:999px;box-shadow:0 6px 24px rgba(0,0,0,.2);opacity:0;transition:.22s;pointer-events:none;max-width:86vw;text-align:center;z-index:99999;}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
 </style>
@@ -80,73 +78,72 @@ textarea:focus{outline:none;border-color:var(--acc);}textarea::placeholder{color
   <p class="eyebrow">Daily Bible Meditation · 성서유니온 매일성경 2026</p>
   <h1>오늘의 묵상</h1>
   <p class="dt" id="dtLine"></p>
-  <div class="horizon"></div>
-  <div class="sun-wrap"><div class="sun"></div></div>
+  <div class="hor"></div>
+  <div class="sun-w"><div class="sun"></div></div>
 </div>
 <div class="wrap">
   <nav class="tabs">
     <button class="tab on" id="tToday">오늘</button>
-    <button class="tab" id="tTomorrow">내일</button>
+    <button class="tab" id="tTmr">내일</button>
     <button class="tab" id="tArc">지난 묵상</button>
   </nav>
   <section class="panel" id="pToday">
-    <div id="cInput">
+    <div id="cIn">
       <div class="card">
         <p class="lbl">오늘의 본문</p>
-        <div class="banner"><span class="banner-icon">📖</span><div><p class="banner-ref" id="pbRef">확인 중...</p><p class="banner-note">2026 성서유니온 읽기표</p></div></div>
-        <div class="row" style="margin-top:0;"><button class="btn btn-dark" id="btnGen">✨ 오늘의 묵상 만들기</button></div>
+        <div class="banner"><span class="bicon">📖</span><div><p class="bref" id="pbRef">확인 중...</p><p class="bnote">2026 성서유니온 읽기표</p></div></div>
+        <div class="row" style="margin-top:0;"><button class="btn btn-d" id="bGen">✨ 오늘의 묵상 만들기</button></div>
         <p class="hint">본문이 다를 경우 <a href="https://sum.su.or.kr:8888/bible/today" target="_blank">사이트</a>에서 확인 후 입력해주세요.</p>
-        <textarea id="txPassage" placeholder="예) 시편 6:1-10 (다를 경우만 입력)"></textarea>
-        <div class="row"><button class="btn btn-lite" style="width:100%;" id="btnGenCustom">입력한 본문으로 묵상 만들기</button></div>
+        <textarea id="txP" placeholder="예) 시편 7:1-17 (다를 경우만 입력)"></textarea>
+        <div class="row"><button class="btn btn-l" style="width:100%;" id="bGenC">입력한 본문으로 묵상 만들기</button></div>
       </div>
     </div>
-    <div id="cLoad" style="display:none;"><div class="card"><div class="spin-wrap"><div class="spinner"></div><p id="loadMsg">묵상을 준비하는 중...</p></div></div></div>
-    <div id="cResult" style="display:none;">
+    <div id="cLoad" style="display:none;"><div class="card"><div class="sw"><div class="sp"></div><p id="ldMsg">묵상을 준비하는 중...</p></div></div></div>
+    <div id="cRes" style="display:none;">
       <div class="card">
-        <button class="back-btn" id="btnBack" style="display:none;">← 오늘의 묵상으로</button>
-        <div class="r-head"><h2 class="r-ref" id="rRef"></h2><span class="seal" id="rSeal"></span></div>
+        <button class="bk" id="bBack" style="display:none;">← 오늘의 묵상으로</button>
+        <div class="rh"><h2 class="rref" id="rRef"></h2><span class="seal" id="rSeal"></span></div>
         <div class="med" id="rText"></div>
-        <hr class="divider">
+        <hr class="div">
         <div class="row">
-          <button class="btn btn-lite" id="btnBible">📖 본문 보기</button>
-          <button class="btn btn-lite" id="btnRegen">다시 만들기</button>
-          <button class="btn btn-lite" id="btnNew">새 본문</button>
+          <button class="btn btn-l" id="bBible">📖 본문 보기</button>
+          <button class="btn btn-l" id="bRegen">다시 만들기</button>
+          <button class="btn btn-l" id="bNew">새 본문</button>
         </div>
         <p class="src">출처: <a href="https://sum.su.or.kr:8888/bible/today" target="_blank">성서유니온 매일성경</a> · AI 묵상 (공식 해설 아님)</p>
       </div>
     </div>
   </section>
-  <section class="panel off" id="pTomorrow">
-    <div class="card"><p class="lbl">내일의 묵상</p><div id="tmrContent"></div></div>
+  <section class="panel off" id="pTmr">
+    <div class="card"><p class="lbl">내일의 묵상</p><div id="tmrEl"></div></div>
   </section>
   <section class="panel off" id="pArc">
-    <div class="card"><p class="lbl">지난 묵상</p><div id="arcList"></div><p class="arc-empty" id="arcEmpty" style="display:none;">아직 저장된 묵상이 없어요.</p></div>
+    <div class="card"><p class="lbl">지난 묵상</p><div id="arcEl"></div><p class="ae" id="arcEmpty" style="display:none;">아직 저장된 묵상이 없어요.</p></div>
   </section>
 </div>
-<div class="modal-bg" id="bibleModal">
-  <div class="modal-box">
-    <div class="modal-top"><h3 id="bibleRef"></h3><button class="modal-close" id="bibleClose">✕</button></div>
-    <div class="bible-text" id="bibleContent"></div>
+<div class="mb" id="bMod">
+  <div class="mbox">
+    <div class="mtop"><h3 id="bRef"></h3><button class="mclose" id="bClose">✕</button></div>
+    <div class="btext" id="bCont"></div>
   </div>
 </div>
-<div class="setup-bg" id="setupBg" style="display:none;">
-  <div class="setup-box">
+<div class="sb" id="sBg" style="display:none;">
+  <div class="sbox">
     <h2>🔑 Google AI 키 설정</h2>
-    <p class="errmsg" id="setupErr"></p>
+    <p class="em" id="sErr"></p>
     <p><strong>완전 무료</strong> · 신용카드 불필요<br>처음 한 번만 입력하면 저장돼요.</p>
     <p style="font-size:13px;color:var(--acc);line-height:1.8;margin:0 0 13px;">1. <a href="https://aistudio.google.com/app/apikey" target="_blank"><strong>aistudio.google.com</strong></a> 접속<br>2. Google 계정 로그인<br>3. Get API key → Create API key → 복사</p>
-    <input class="key-inp" id="keyInp" type="password" placeholder="키를 붙여넣어 주세요">
-    <button class="btn btn-dark" style="width:100%;margin-top:6px;" id="keySaveBtn">저장하고 시작하기</button>
-    <p class="key-note">키는 이 기기에만 저장되며 외부로 전송되지 않아요.</p>
+    <input class="ki" id="kInp" type="password" placeholder="키를 붙여넣어 주세요">
+    <button class="btn btn-d" style="width:100%;margin-top:6px;" id="kSave">저장하고 시작하기</button>
+    <p class="kn">키는 이 기기에만 저장되며 외부로 전송되지 않아요.</p>
   </div>
 </div>
 <div class="toast" id="toastEl"></div>
 <script>
 (function(){
 "use strict";
-function G(id){ return document.getElementById(id); }
+var G=function(id){return document.getElementById(id);};
 
-/* ── 2026 읽기표 ── */
 var SCH={
 "2026-01-01":"창세기 1:1-13","2026-01-02":"창세기 1:14-25","2026-01-03":"창세기 1:26-2:3","2026-01-04":"창세기 2:4-25","2026-01-05":"창세기 3:1-13","2026-01-06":"창세기 3:14-24","2026-01-07":"창세기 4:1-26","2026-01-08":"창세기 5:1-32","2026-01-09":"창세기 6:1-22","2026-01-10":"창세기 7:1-24","2026-01-11":"창세기 8:1-22","2026-01-12":"창세기 9:1-17","2026-01-13":"창세기 9:18-29","2026-01-14":"창세기 10:1-32","2026-01-15":"창세기 11:1-9","2026-01-16":"창세기 11:10-30","2026-01-17":"창세기 11:31-12:9","2026-01-18":"창세기 12:10-20","2026-01-19":"창세기 13:1-18","2026-01-20":"창세기 14:1-24","2026-01-21":"창세기 15:1-21","2026-01-22":"창세기 16:1-16","2026-01-23":"창세기 17:1-27","2026-01-24":"창세기 18:1-15","2026-01-25":"창세기 18:16-33","2026-01-26":"창세기 19:1-11","2026-01-27":"창세기 19:12-23","2026-01-28":"창세기 19:24-38","2026-01-29":"창세기 20:1-18","2026-01-30":"창세기 21:1-21","2026-01-31":"창세기 21:22-34",
 "2026-02-01":"요한복음 1:1-18","2026-02-02":"요한복음 1:19-34","2026-02-03":"요한복음 1:35-51","2026-02-04":"요한복음 2:1-12","2026-02-05":"요한복음 2:13-25","2026-02-06":"요한복음 3:1-15","2026-02-07":"요한복음 3:16-21","2026-02-08":"요한복음 3:22-36","2026-02-09":"요한복음 4:1-14","2026-02-10":"요한복음 4:15-26","2026-02-11":"요한복음 4:27-42","2026-02-12":"요한복음 4:43-54","2026-02-13":"요한복음 5:1-15","2026-02-14":"요한복음 5:16-30","2026-02-15":"요한복음 5:31-47","2026-02-16":"요한복음 6:1-15","2026-02-17":"요한복음 6:16-29","2026-02-18":"요한복음 6:30-40","2026-02-19":"요한복음 6:41-59","2026-02-20":"요한복음 6:60-71","2026-02-21":"요한복음 7:1-13","2026-02-22":"요한복음 7:14-24","2026-02-23":"요한복음 7:25-36","2026-02-24":"요한복음 7:37-52","2026-02-25":"요한복음 7:53-8:20","2026-02-26":"요한복음 8:21-30","2026-02-27":"요한복음 8:31-41","2026-02-28":"요한복음 8:42-59",
@@ -162,281 +159,255 @@ var SCH={
 "2026-12-01":"이사야 43:1-13","2026-12-02":"이사야 43:14-28","2026-12-03":"이사야 44:1-20","2026-12-04":"이사야 44:21-45:7","2026-12-05":"이사야 45:8-17","2026-12-06":"이사야 45:18-25","2026-12-07":"이사야 46:1-13","2026-12-08":"이사야 47:1-15","2026-12-09":"이사야 48:1-11","2026-12-10":"이사야 48:12-22","2026-12-11":"이사야 49:1-13","2026-12-12":"이사야 49:14-50:3","2026-12-13":"이사야 50:4-51:8","2026-12-14":"이사야 51:9-16","2026-12-15":"이사야 51:17-52:12","2026-12-16":"이사야 52:13-53:12","2026-12-17":"이사야 54:1-17","2026-12-18":"이사야 55:1-13","2026-12-19":"이사야 56:1-8","2026-12-20":"이사야 56:9-57:13","2026-12-21":"이사야 57:14-21","2026-12-22":"이사야 58:1-14","2026-12-23":"이사야 59:1-21","2026-12-24":"이사야 60:1-22","2026-12-25":"이사야 61:1-11","2026-12-26":"이사야 62:1-12","2026-12-27":"이사야 63:1-14","2026-12-28":"이사야 63:15-64:12","2026-12-29":"이사야 65:1-16","2026-12-30":"이사야 65:17-25","2026-12-31":"이사야 66:1-24"
 };
 
-/* 성경 책 번호 (bolls.life API용) */
 var BNUM={"창세기":1,"출애굽기":2,"레위기":3,"민수기":4,"신명기":5,"여호수아":6,"사사기":7,"룻기":8,"사무엘상":9,"사무엘하":10,"열왕기상":11,"열왕기하":12,"역대상":13,"역대하":14,"에스라":15,"느헤미야":16,"에스더":17,"욥기":18,"시편":19,"잠언":20,"전도서":21,"아가":22,"이사야":23,"예레미야":24,"예레미야애가":25,"에스겔":26,"다니엘":27,"호세아":28,"요엘":29,"아모스":30,"오바댜":31,"요나":32,"미가":33,"나훔":34,"하박국":35,"스바냐":36,"학개":37,"스가랴":38,"말라기":39,"마태복음":40,"마가복음":41,"누가복음":42,"요한복음":43,"사도행전":44,"로마서":45,"고린도전서":46,"고린도후서":47,"갈라디아서":48,"에베소서":49,"빌립보서":50,"골로새서":51,"데살로니가전서":52,"데살로니가후서":53,"디모데전서":54,"디모데후서":55,"디도서":56,"빌레몬서":57,"히브리서":58,"야고보서":59,"베드로전서":60,"베드로후서":61,"요한일서":62,"요한이서":63,"요한삼서":64,"유다서":65,"요한계시록":66};
 
-/* ── 날짜 ── */
-function todayKey(){ return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Seoul'}).format(new Date()); }
-function tomorrowKey(){ var d=new Date(); d.setDate(d.getDate()+1); return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Seoul'}).format(d); }
-function todayLabel(){ return new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',year:'numeric',month:'long',day:'numeric',weekday:'long'}).format(new Date()); }
-function keyLabel(k){ return new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',year:'numeric',month:'long',day:'numeric',weekday:'short'}).format(new Date(k+'T12:00:00+09:00')); }
-function sealTxt(k){ var d=new Date(k+'T12:00:00+09:00'); return (d.getMonth()+1)+'.'+(d.getDate()); }
+var BABBR={"창세기":"창","출애굽기":"출","레위기":"레","민수기":"민","신명기":"신","여호수아":"수","사사기":"삿","룻기":"룻","사무엘상":"삼상","사무엘하":"삼하","열왕기상":"왕상","열왕기하":"왕하","역대상":"대상","역대하":"대하","에스라":"스","느헤미야":"느","에스더":"에","욥기":"욥","시편":"시","잠언":"잠","전도서":"전","아가":"아","이사야":"사","예레미야":"렘","예레미야애가":"애","에스겔":"겔","다니엘":"단","호세아":"호","요엘":"욜","아모스":"암","오바댜":"옵","요나":"욘","미가":"미","나훔":"나","하박국":"합","스바냐":"습","학개":"학","스가랴":"슥","말라기":"말","마태복음":"마","마가복음":"막","누가복음":"눅","요한복음":"요","사도행전":"행","로마서":"롬","고린도전서":"고전","고린도후서":"고후","갈라디아서":"갈","에베소서":"엡","빌립보서":"빌","골로새서":"골","데살로니가전서":"살전","데살로니가후서":"살후","디모데전서":"딤전","디모데후서":"딤후","디도서":"딛","빌레몬서":"몬","히브리서":"히","야고보서":"약","베드로전서":"벧전","베드로후서":"벧후","요한일서":"요일","요한이서":"요이","요한삼서":"요삼","유다서":"유","요한계시록":"계"};
 
-/* ── Toast ── */
+function todayKey(){return new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Seoul"}).format(new Date());}
+function tomorrowKey(){var d=new Date();d.setDate(d.getDate()+1);return new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Seoul"}).format(d);}
+function todayLabel(){return new Intl.DateTimeFormat("ko-KR",{timeZone:"Asia/Seoul",year:"numeric",month:"long",day:"numeric",weekday:"long"}).format(new Date());}
+function keyLabel(k){return new Intl.DateTimeFormat("ko-KR",{timeZone:"Asia/Seoul",year:"numeric",month:"long",day:"numeric",weekday:"short"}).format(new Date(k+"T12:00:00+09:00"));}
+function sealTxt(k){var d=new Date(k+"T12:00:00+09:00");return (d.getMonth()+1)+"."+(d.getDate());}
+
 var _tt;
-function toast(msg){ var e=G('toastEl'); e.textContent=msg; e.classList.add('on'); clearTimeout(_tt); _tt=setTimeout(function(){ e.classList.remove('on'); },3500); }
+function toast(m){var e=G("toastEl");e.textContent=m;e.classList.add("on");clearTimeout(_tt);_tt=setTimeout(function(){e.classList.remove("on");},3500);}
+function showCard(n){G("cIn").style.display="none";G("cLoad").style.display="none";G("cRes").style.display="none";G(n).style.display="";}
 
-/* ── 카드 전환 ── */
-function showCard(name){ G('cInput').style.display='none'; G('cLoad').style.display='none'; G('cResult').style.display='none'; G(name).style.display=''; }
+var SHARED="AQ.Ab8RN6Lpl0LdlGbsbCTF8bxrnEzOa1QRa7Qc4Sfae5INBUcaYA";
+function getKey(){return localStorage.getItem("med_key")||SHARED;}
+function saveKey(k){localStorage.setItem("med_key",k);}
 
-/* ── API 키 ── */
-var SHARED='AQ.Ab8RN6Lpl0LdlGbsbCTF8bxrnEzOa1QRa7Qc4Sfae5INBUcaYA';
-function getKey(){ return localStorage.getItem('med_key')||SHARED; }
-function saveKey(k){ localStorage.setItem('med_key',k); }
+var SYS="너는 성경 원어(히브리어/헬라어)와 신학에 정통한 묵상 저자야. 한국어로, 목회적 따뜻함과 학문적 깊이를 함께 담아. 소제목/번호/마크다운 없이 자연스러운 문단으로만 써.";
+function medP(p){return "본문: "+p+"\n\n배경(2문장), 핵심 원어 1개 분석(발음+철자 포함), 신학적 의미(2문단), 오늘의 적용 질문(1문단), 기도(2문장). 700자 내외.";}
 
-/* ── 프롬프트 ── */
-var SYS='너는 성경 원어(히브리어/헬라어)와 신학에 정통한 묵상 저자야. 한국어로, 목회적 따뜻함과 학문적 깊이를 함께 담아. 소제목/번호/마크다운 없이 자연스러운 문단으로만 써.';
-function medPrompt(p){ return '본문: '+p+'\n\n배경(2문장), 핵심 원어 1개 분석(발음+철자 포함), 신학적 의미(2문단), 오늘의 적용 질문(1문단), 기도(2문장). 700자 내외.'; }
-
-/* ── Anthropic API ── */
 function callAnthropic(prompt,sys){
-  return fetch('https://api.anthropic.com/v1/messages',{
-    method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:2048,system:sys||SYS,messages:[{role:'user',content:prompt}]})
+  return fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:2048,system:sys||SYS,messages:[{role:"user",content:prompt}]})
   }).then(function(r){
-    if(!r.ok) throw new Error('ant-'+r.status);
+    if(!r.ok)throw new Error("ant-"+r.status);
     return r.json();
   }).then(function(d){
-    var t=(d.content||[]).filter(function(b){return b.type==='text';}).map(function(b){return b.text;}).join('\n').trim();
-    if(!t) throw new Error('empty');
+    var t=(d.content||[]).filter(function(b){return b.type==="text";}).map(function(b){return b.text;}).join("\n").trim();
+    if(!t)throw new Error("empty");
     return t;
   });
 }
 
-/* ── Gemini API (모델 자동 탐색) ── */
-var GMODELS=['gemini-2.0-flash-exp','gemini-2.0-flash','gemini-1.5-flash-latest','gemini-1.5-flash','gemini-1.5-pro-latest'];
-var _foundModel=null;
+var _gModels=null;
+function getGeminiModels(key){
+  if(_gModels)return Promise.resolve(_gModels);
+  return fetch("https://generativelanguage.googleapis.com/v1beta/models?key="+key)
+    .then(function(r){return r.ok?r.json():null;})
+    .then(function(d){
+      if(d&&d.models){
+        _gModels=d.models
+          .map(function(m){return m.name?m.name.replace("models/",""):null;})
+          .filter(function(n){return n&&n.indexOf("flash")>=0&&n.indexOf("thinking")<0&&n.indexOf("vision")<0&&n.indexOf("image")<0;});
+      }
+      if(!_gModels||!_gModels.length)_gModels=["gemini-2.0-flash","gemini-1.5-flash","gemini-1.5-flash-latest"];
+      return _gModels;
+    }).catch(function(){
+      _gModels=["gemini-2.0-flash","gemini-1.5-flash","gemini-1.5-flash-latest"];
+      return _gModels;
+    });
+}
 
 function callGemini(prompt,sys){
   var key=getKey();
-  if(!key) return Promise.reject(new Error('no-key'));
-  var models=_foundModel?[_foundModel].concat(GMODELS):GMODELS;
-  function tryM(i){
-    if(i>=models.length) return Promise.reject(new Error('gemini-all-failed'));
-    var model=models[i];
-    var url='https://generativelanguage.googleapis.com/v1beta/models/'+model+':generateContent?key='+key;
-    return fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        systemInstruction:{parts:[{text:sys||SYS}]},
-        contents:[{parts:[{text:prompt}]}],
-        generationConfig:{temperature:0.8,maxOutputTokens:2048}
-      })
-    }).then(function(r){
-      if(r.status===401||r.status===403) throw new Error('bad-key');
-      if(!r.ok) return tryM(i+1);
-      return r.json().then(function(d){
-        var fin=d.candidates&&d.candidates[0]&&d.candidates[0].finishReason;
-        var t=d.candidates&&d.candidates[0]&&d.candidates[0].content&&d.candidates[0].content.parts&&d.candidates[0].content.parts[0]&&d.candidates[0].content.parts[0].text||'';
-        if(fin==='MAX_TOKENS'||!t||t.length<80) return tryM(i+1);
-        _foundModel=model;
-        return t.trim();
-      });
-    }).catch(function(e){ if(e.message==='bad-key') throw e; return tryM(i+1); });
-  }
-  return tryM(0);
+  if(!key)return Promise.reject(new Error("no-key"));
+  return getGeminiModels(key).then(function(models){
+    function tryM(i){
+      if(i>=models.length)return Promise.reject(new Error("gemini-all-failed"));
+      return fetch("https://generativelanguage.googleapis.com/v1beta/models/"+models[i]+":generateContent?key="+key,{
+        method:"POST",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({
+          systemInstruction:{parts:[{text:sys||SYS}]},
+          contents:[{parts:[{text:prompt}]}],
+          generationConfig:{temperature:0.8,maxOutputTokens:2048}
+        })
+      }).then(function(r){
+        if(r.status===401||r.status===403)throw new Error("bad-key");
+        if(!r.ok)return tryM(i+1);
+        return r.json().then(function(d){
+          var fr=d.candidates&&d.candidates[0]&&d.candidates[0].finishReason;
+          var t=d.candidates&&d.candidates[0]&&d.candidates[0].content&&d.candidates[0].content.parts&&d.candidates[0].content.parts[0]&&d.candidates[0].content.parts[0].text||"";
+          if(fr==="MAX_TOKENS"||!t||t.length<80)return tryM(i+1);
+          return t.trim();
+        });
+      }).catch(function(e){if(e.message==="bad-key")throw e;return tryM(i+1);});
+    }
+    return tryM(0);
+  });
 }
 
 function callAPI(prompt,sys){
-  return callAnthropic(prompt,sys).catch(function(){ return callGemini(prompt,sys); });
+  return callAnthropic(prompt,sys).catch(function(){return callGemini(prompt,sys);});
 }
 
-/* ── 성경 본문 가져오기 (bolls.life 무료 API) ── */
 function parseRef(ref){
   var m=ref.match(/^(.+?)\s+(\d+):(\d+)(?:-(\d+))?/);
-  if(!m) return null;
+  if(!m)return null;
   return {book:m[1].trim(),ch:parseInt(m[2]),vs:parseInt(m[3]),ve:parseInt(m[4]||m[3])};
 }
 
-var BABBR={"창세기":"창","출애굽기":"출","레위기":"레","민수기":"민","신명기":"신","여호수아":"수","사사기":"삿","룻기":"룻","사무엘상":"삼상","사무엘하":"삼하","열왕기상":"왕상","열왕기하":"왕하","역대상":"대상","역대하":"대하","에스라":"스","느헤미야":"느","에스더":"에","욥기":"욥","시편":"시","잠언":"잠","전도서":"전","아가":"아","이사야":"사","예레미야":"렘","예레미야애가":"애","에스겔":"겔","다니엘":"단","호세아":"호","요엘":"욜","아모스":"암","오바댜":"옵","요나":"욘","미가":"미","나훔":"나","하박국":"합","스바냐":"습","학개":"학","스가랴":"슥","말라기":"말","마태복음":"마","마가복음":"막","누가복음":"눅","요한복음":"요","사도행전":"행","로마서":"롬","고린도전서":"고전","고린도후서":"고후","갈라디아서":"갈","에베소서":"엡","빌립보서":"빌","골로새서":"골","데살로니가전서":"살전","데살로니가후서":"살후","디모데전서":"딤전","디모데후서":"딤후","디도서":"딛","빌레몬서":"몬","히브리서":"히","야고보서":"약","베드로전서":"벧전","베드로후서":"벧후","요한일서":"요일","요한이서":"요이","요한삼서":"요삼","유다서":"유","요한계시록":"계"};
-function fetchBibleText(ref){
+function fetchBible(ref){
   var p=parseRef(ref);
-  if(!p) return Promise.reject(new Error('parse'));
-
-  /* 1순위: bible.js 로컬 데이터 (같은 폴더에 bible.js 있을 때) */
-  if(typeof BDATA!=='undefined'){
+  if(!p)return Promise.reject(new Error("parse"));
+  if(typeof BDATA!=="undefined"){
     var abbr=BABBR[p.book];
-    if(abbr){
-      var arr=BDATA[abbr+p.ch];
+    if(abbr){var arr=BDATA[abbr+p.ch];
       if(arr&&arr.length){
-        var lines=[];
-        for(var v=p.vs;v<=p.ve;v++){
-          if(arr[v-1]) lines.push(v+'  '+arr[v-1]);
-        }
-        if(lines.length) return Promise.resolve(lines.join('\n'));
+        var ls=[];
+        for(var v=p.vs;v<=p.ve;v++){if(arr[v-1])ls.push(v+"  "+arr[v-1]);}
+        if(ls.length)return Promise.resolve(ls.join("\n"));
       }
     }
   }
-
-  /* 2순위: getbible.net 무료 API */
   var bn=BNUM[p.book];
-  if(!bn) return Promise.reject(new Error('no-book'));
+  if(!bn)return Promise.reject(new Error("no-book"));
   function tryG(tr){
-    var url='https://getbible.net/v2/'+tr+'/'+bn+'/'+p.ch+'.json';
-    return fetch(url).then(function(r){
-      if(!r.ok) throw new Error(r.status);
-      return r.json();
-    }).then(function(d){
-      var lines=[];
-      for(var v=p.vs;v<=p.ve;v++){
-        var vd=d.verses&&d.verses[String(v)];
-        if(vd&&vd.text) lines.push(v+'  '+vd.text.trim());
-      }
-      if(!lines.length) throw new Error('empty');
-      return lines.join('\n');
-    });
+    return fetch("https://getbible.net/v2/"+tr+"/"+bn+"/"+p.ch+".json")
+      .then(function(r){if(!r.ok)throw new Error(r.status);return r.json();})
+      .then(function(d){
+        var ls=[];
+        for(var v=p.vs;v<=p.ve;v++){
+          var vd=d.verses&&d.verses[String(v)];
+          if(vd&&vd.text)ls.push(v+"  "+vd.text.trim());
+        }
+        if(!ls.length)throw new Error("empty");
+        return ls.join("\n");
+      });
   }
-  return tryG('korean').catch(function(){ return tryG('kor'); });
+  return tryG("korean").catch(function(){return tryG("kor");});
 }
 
-/* ── HTML 변환 ── */
 function toHTML(t){
-  return (t||'').replace(/\\n/g,'\n').split(/\n+/).filter(Boolean).map(function(p){
-    return '<p>'+p.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</p>';
-  }).join('');
+  return (t||"").replace(/\\n/g,"\n").split(/\n+/).filter(Boolean).map(function(p){
+    return "<p>"+p.replace(/&/g,"&amp;").replace(/</g,"&lt;")+"</p>";
+  }).join("");
 }
 
-/* ── 저장소 ── */
 var arc={};
-var SK='med_arc_3';
+var SK="med_v4";
 function loadArc(){
-  try{ if(window.storage){ return window.storage.get(SK).then(function(r){return r&&r.value?JSON.parse(r.value):{};}).catch(function(){return {};}); } }catch(e){}
-  try{ var v=localStorage.getItem(SK); return Promise.resolve(v?JSON.parse(v):{}); }catch(e){ return Promise.resolve({}); }
+  try{if(window.storage)return window.storage.get(SK).then(function(r){return r&&r.value?JSON.parse(r.value):{};}).catch(function(){return{};});}catch(e){}
+  try{var v=localStorage.getItem(SK);return Promise.resolve(v?JSON.parse(v):{});}catch(e){return Promise.resolve({});}
 }
 function saveArc(){
   var s=JSON.stringify(arc);
-  try{ if(window.storage) window.storage.set(SK,s).catch(function(){}); }catch(e){}
-  try{ localStorage.setItem(SK,s); }catch(e){}
+  try{if(window.storage)window.storage.set(SK,s).catch(function(){});}catch(e){}
+  try{localStorage.setItem(SK,s);}catch(e){}
 }
 
-/* ── 렌더링 ── */
 function renderEntry(e,isToday){
-  G('rRef').textContent=e.reference||'오늘의 묵상';
-  G('rSeal').textContent=sealTxt(e.date);
-  G('rText').innerHTML=toHTML(e.meditation||'');
-  G('btnBack').style.display=isToday?'none':'block';
-  showCard('cResult');
+  G("rRef").textContent=e.reference||"오늘의 묵상";
+  G("rSeal").textContent=sealTxt(e.date);
+  G("rText").innerHTML=toHTML(e.meditation||"");
+  G("bBack").style.display=isToday?"none":"block";
+  showCard("cRes");
 }
 
 function renderTomorrow(){
-  var k=tomorrowKey(),e=arc[k],el=G('tmrContent');
+  var k=tomorrowKey(),e=arc[k],el=G("tmrEl");
   if(e){
-    el.innerHTML='<div style="font-family:Noto Serif KR,serif;font-size:16px;font-weight:600;margin-bottom:12px;">'+e.reference+'</div><div class="med">'+toHTML(e.meditation)+'</div>';
-  } else {
+    el.innerHTML="<div style=\"font-family:Noto Serif KR,serif;font-size:16px;font-weight:600;margin-bottom:12px;\">"+e.reference+"</div><div class=\"med\">"+toHTML(e.meditation)+"</div>";
+  }else{
     var p=SCH[k];
     if(p){
-      el.innerHTML='<div style="text-align:center;padding:18px 0;"><p style="color:var(--soft);font-size:14px;margin:0 0 12px;">내일 본문: <strong>'+p+'</strong></p><button class="btn btn-dark" id="btnFetchTmr">지금 미리 받기</button></div>';
-      G('btnFetchTmr').onclick=function(){
-        el.innerHTML='<p style="color:var(--soft);font-size:14px;text-align:center;padding:20px;">생성 중...</p>';
-        prefetchTomorrow(true);
-      };
-    } else {
-      el.innerHTML='<p style="color:var(--soft);font-size:14px;text-align:center;padding:18px 0;">내일 본문 정보가 없어요.</p>';
+      el.innerHTML="<div style=\"text-align:center;padding:18px 0;\"><p style=\"color:var(--soft);font-size:14px;margin:0 0 12px;\">내일 본문: <strong>"+p+"</strong></p><button class=\"btn btn-d\" id=\"bFetchTmr\">지금 미리 받기</button></div>";
+      G("bFetchTmr").onclick=function(){el.innerHTML="<p style=\"color:var(--soft);font-size:14px;text-align:center;padding:20px;\">생성 중...</p>";prefetch(true);};
+    }else{
+      el.innerHTML="<p style=\"color:var(--soft);font-size:14px;text-align:center;padding:18px 0;\">내일 본문 정보가 없어요.</p>";
     }
   }
 }
 
 function renderArc(){
-  var list=G('arcList'),empty=G('arcEmpty'),tmr=tomorrowKey();
+  var list=G("arcEl"),empty=G("arcEmpty"),tmr=tomorrowKey();
   var keys=Object.keys(arc).filter(function(k){return k!==tmr;}).sort().reverse();
-  list.innerHTML='';
-  if(!keys.length){ empty.style.display='block'; return; }
-  empty.style.display='none';
+  list.innerHTML="";
+  if(!keys.length){empty.style.display="block";return;}
+  empty.style.display="none";
   keys.forEach(function(k){
-    var e=arc[k],btn=document.createElement('button');
-    btn.className='arc-item';
-    btn.innerHTML='<span class="seal">'+sealTxt(k)+'</span><span class="meta"><p class="a-dt">'+keyLabel(k)+'</p><p class="a-ref">'+(e.reference||'묵상')+'</p></span>';
-    btn.onclick=function(){ setTab('today'); renderEntry(e,k===todayKey()); };
+    var e=arc[k],btn=document.createElement("button");
+    btn.className="ai";
+    btn.innerHTML="<span class=\"seal\">"+sealTxt(k)+"</span><span class=\"mt\"><p class=\"adt\">"+keyLabel(k)+"</p><p class=\"arf\">"+(e.reference||"묵상")+"</p></span>";
+    btn.onclick=function(){setTab("today");renderEntry(e,k===todayKey());};
     list.appendChild(btn);
   });
 }
 
-/* ── 묵상 생성 ── */
 function generate(passage){
-  showCard('cLoad');
-  G('loadMsg').textContent='묵상을 준비하는 중...';
-  return callAPI(medPrompt(passage)).then(function(text){
+  showCard("cLoad");G("ldMsg").textContent="묵상을 준비하는 중...";
+  return callAPI(medP(passage)).then(function(text){
     var entry={date:todayKey(),reference:passage,meditation:text,savedAt:Date.now()};
-    arc[entry.date]=entry; saveArc(); renderArc(); renderEntry(entry,true);
-    setTimeout(function(){ prefetchTomorrow(false); },4000);
+    arc[entry.date]=entry;saveArc();renderArc();renderEntry(entry,true);
+    setTimeout(function(){prefetch(false);},4000);
   }).catch(function(e){
-    if(e.message==='bad-key'||e.message==='no-key'){ showSetup('API 키가 올바르지 않아요.'); }
-    else { showCard('cInput'); toast('오류: '+e.message); }
+    if(e.message==="bad-key"||e.message==="no-key"){showSetup("API 키가 올바르지 않아요.");}
+    else{showCard("cIn");toast("오류: "+e.message);}
   });
 }
 
-/* ── 내일 프리패치 ── */
-function prefetchTomorrow(showToast){
-  var k=tomorrowKey();
-  if(arc[k]) return;
-  var p=SCH[k]; if(!p) return;
-  callAPI(medPrompt(p)).then(function(text){
+function prefetch(showToast){
+  var k=tomorrowKey();if(arc[k])return;
+  var p=SCH[k];if(!p)return;
+  callAPI(medP(p)).then(function(text){
     arc[k]={date:k,reference:p,meditation:text,savedAt:Date.now(),pre:true};
-    saveArc(); renderArc();
-    if(showToast){ renderTomorrow(); toast('내일 묵상이 준비됐어요!'); }
+    saveArc();renderArc();
+    if(showToast){renderTomorrow();toast("내일 묵상이 준비됐어요!");}
   }).catch(function(){});
 }
 
-/* ── 탭 ── */
-function setTab(name){
-  G('tToday').classList.toggle('on',name==='today');
-  G('tTomorrow').classList.toggle('on',name==='tomorrow');
-  G('tArc').classList.toggle('on',name==='arc');
-  G('pToday').classList.toggle('off',name!=='today');
-  G('pTomorrow').classList.toggle('off',name!=='tomorrow');
-  G('pArc').classList.toggle('off',name!=='arc');
+function setTab(n){
+  G("tToday").classList.toggle("on",n==="today");
+  G("tTmr").classList.toggle("on",n==="tmr");
+  G("tArc").classList.toggle("on",n==="arc");
+  G("pToday").classList.toggle("off",n!=="today");
+  G("pTmr").classList.toggle("off",n!=="tmr");
+  G("pArc").classList.toggle("off",n!=="arc");
 }
-G('tToday').onclick=function(){ setTab('today'); };
-G('tTomorrow').onclick=function(){ renderTomorrow(); setTab('tomorrow'); };
-G('tArc').onclick=function(){ renderArc(); setTab('arc'); };
+G("tToday").onclick=function(){setTab("today");};
+G("tTmr").onclick=function(){renderTomorrow();setTab("tmr");};
+G("tArc").onclick=function(){renderArc();setTab("arc");};
 
-/* ── 버튼 ── */
-G('btnGen').onclick=function(){ var p=SCH[todayKey()]; if(p) generate(p); else toast('오늘 본문이 없어요. 직접 입력해주세요.'); };
-G('btnGenCustom').onclick=function(){ var v=G('txPassage').value.trim(); if(!v){ toast('본문을 입력해주세요.'); return; } generate(v); };
-G('btnRegen').onclick=function(){ var e=arc[todayKey()]; if(e) generate(e.reference); };
-G('btnNew').onclick=function(){ G('txPassage').value=''; showCard('cInput'); };
-G('btnBack').onclick=function(){ var e=arc[todayKey()]; if(e) renderEntry(e,true); else showCard('cInput'); };
+G("bGen").onclick=function(){var p=SCH[todayKey()];if(p)generate(p);else toast("오늘 본문이 없어요.");};
+G("bGenC").onclick=function(){var v=G("txP").value.trim();if(!v){toast("본문을 입력해주세요.");return;}generate(v);};
+G("bRegen").onclick=function(){var e=arc[todayKey()];if(e)generate(e.reference);};
+G("bNew").onclick=function(){G("txP").value="";showCard("cIn");};
+G("bBack").onclick=function(){var e=arc[todayKey()];if(e)renderEntry(e,true);else showCard("cIn");};
 
-/* ── 성경 본문 버튼 ── */
-G('btnBible').onclick=function(){
-  var p=(arc[todayKey()]&&arc[todayKey()].reference)||SCH[todayKey()];
-  if(!p) return;
-  G('bibleRef').textContent=p+' (개역한글)';
-  G('bibleContent').innerHTML='<p style="color:var(--soft);text-align:center;padding:18px 0;">본문을 불러오는 중...</p>';
-  G('bibleModal').style.display='block';
-  fetchBibleText(p)
-    .then(function(t){
-      G('bibleContent').innerHTML=t.split('\n').filter(Boolean).map(function(v){
-        return '<p>'+v.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</p>';
-      }).join('');
-    })
-    .catch(function(){
-      G('bibleContent').innerHTML='<p style="color:var(--soft);text-align:center;padding:14px 0;">본문을 불러오지 못했어요.<br><br><a href="https://sum.su.or.kr:8888/bible/today" target="_blank" style="color:var(--acc);">매일성경 사이트에서 보기 →</a></p>';
-    });
+G("bBible").onclick=function(){
+  var p=(arc[todayKey()]&&arc[todayKey()].reference)||SCH[todayKey()];if(!p)return;
+  G("bRef").textContent=p;
+  G("bCont").innerHTML="<p style=\"color:var(--soft);text-align:center;padding:18px 0;\">본문을 불러오는 중...</p>";
+  G("bMod").style.display="block";
+  fetchBible(p).then(function(t){
+    G("bCont").innerHTML=t.split("\n").filter(Boolean).map(function(v){
+      return "<p>"+v.replace(/&/g,"&amp;").replace(/</g,"&lt;")+"</p>";
+    }).join("");
+  }).catch(function(){
+    G("bCont").innerHTML="<p style=\"color:var(--soft);text-align:center;padding:14px 0;\">본문을 불러오지 못했어요.<br><br><a href=\"https://sum.su.or.kr:8888/bible/today\" target=\"_blank\" style=\"color:var(--acc)\">매일성경 사이트에서 보기 →</a></p>";
+  });
 };
-G('bibleClose').onclick=function(){ G('bibleModal').style.display='none'; };
-G('bibleModal').onclick=function(ev){ if(ev.target===G('bibleModal')) G('bibleModal').style.display='none'; };
+G("bClose").onclick=function(){G("bMod").style.display="none";};
+G("bMod").onclick=function(ev){if(ev.target===G("bMod"))G("bMod").style.display="none";};
 
-/* ── 설정 ── */
-function showSetup(msg){ G('setupErr').textContent=msg||''; G('setupBg').style.display='flex'; }
-G('keySaveBtn').onclick=function(){
-  var v=G('keyInp').value.trim();
-  if(v.length<10){ toast('키를 올바르게 입력해주세요.'); return; }
-  saveKey(v); _foundModel=null; G('setupBg').style.display='none';
-  var p=SCH[todayKey()]; if(p) generate(p); else showCard('cInput');
+function showSetup(m){G("sErr").textContent=m||"";G("sBg").style.display="flex";}
+G("kSave").onclick=function(){
+  var v=G("kInp").value.trim();if(v.length<10){toast("키를 올바르게 입력해주세요.");return;}
+  saveKey(v);_gModels=null;G("sBg").style.display="none";
+  var p=SCH[todayKey()];if(p)generate(p);else showCard("cIn");
 };
 
-/* ── 부팅 ── */
-G('dtLine').textContent=todayLabel();
-var tp=SCH[todayKey()];
-G('pbRef').textContent=tp||'날짜 범위 외';
-
+G("dtLine").textContent=todayLabel();
+var tp=SCH[todayKey()];G("pbRef").textContent=tp||"날짜 범위 외";
 loadArc().then(function(saved){
-  arc=saved||{};
-  renderArc();
+  arc=saved||{};renderArc();
   var te=arc[todayKey()];
-  if(te){ renderEntry(te,true); setTimeout(function(){ prefetchTomorrow(false); },4000); }
-  else if(tp){ generate(tp); }
-  else { showCard('cInput'); }
+  if(te){renderEntry(te,true);setTimeout(function(){prefetch(false);},4000);}
+  else if(tp){generate(tp);}
+  else{showCard("cIn");}
 });
 })();
 </script>
