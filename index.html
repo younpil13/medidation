@@ -177,23 +177,25 @@ var SHARED="AQ.Ab8RN6Lpl0LdlGbsbCTF8bxrnEzOa1QRa7Qc4Sfae5INBUcaYA";
 function getKey(){return localStorage.getItem("med_key")||SHARED;}
 function saveKey(k){localStorage.setItem("med_key",k);}
 
-var SYS="너는 성경 원어(히브리어/헬라어)와 신학에 정통한 한국어 묵상 저자야. 목회적 따뜻함과 학문적 깊이를 함께 담아. 지정된 형식을 정확히 따라줘.";
+var SYS="너는 따뜻하고 깊이 있는 한국어 성경 묵상을 쓰는 저자야. 학문적이기보다 삶에 밀착된 이야기체로, 독자에게 직접 말 걸듯 써. 지정된 형식을 정확히 따라줘.";
 function medP(p){
   return "오늘 본문: "+p+"\n\n"+
-    "아래 형식으로 깊이 있는 묵상을 작성해줘.\n\n"+
-    "먼저 한 줄 소제목을 따옴표 안에 써줘.\n\n"+
-    "도입: 본문 배경과 핵심 장면 2-3문장. 핵심 원어 1개(발음+철자) 포함.\n\n"+
-    "1. [첫 번째 소제목]\n첫 번째 신학적 통찰. 3-4문단. 삶의 예시 포함.\n\n"+
-    "2. [두 번째 소제목]\n두 번째 신학적 통찰. 2-3문단. 복음적 전환점 포함.\n\n"+
-    "3. [세 번째 소제목]\n세 번째 통찰. 2-3문단. 오늘 삶과 가장 가까운 적용.\n\n"+
-    "\uD83C\uDF3F 오늘 나에게 주시는 질문\n하나의 깊은 성찰 질문과 짧은 고백 제안.\n\n"+
-    "\uD83D\uDE4F 오늘의 기도\n본문 핵심을 담은 진실한 기도. 3-5문단. 강조 구절은 **별표**로 표시.\n\n"+
-    "전체 1200-1800자. 따뜻하고 목회적인 어조.";
+    "아래 형식으로 묵상을 작성해줘. 형식을 정확하게 지켜줘.\n\n"+
+    "제목: \"[본문 핵심을 담은 한 문장]\"\n\n"+
+    "도입: 본문의 핵심 장면과 상황을 2-3문장으로 소개. 성경 인용 1개를 \"...\" — 출처 형식으로 포함.\n\n"+
+    "1. [소제목]\n2-3문단. 신학적 통찰을 삶의 언어로. 독자에게 직접 말 걸기.\n\n"+
+    "2. [소제목]\n2-3문단. 하나님의 성품/방식을 보여주는 본문 장면 중심.\n\n"+
+    "3. [소제목]\n2-3문단. 믿음과 두려움, 순종의 현실적 의미.\n\n"+
+    "4. [소제목]\n2-3문단. 오늘 삶에서 하나님이 일하시는 방식.\n\n"+
+    "\uD83E\uDDD8 오늘 나의 묵상\n오늘 말씀을 내 삶에 적용하는 개인적 성찰. 2-3문단. 질문 형식 포함. **강조할 핵심 문장은 **별표**로 표시**.\n\n"+
+    "\uD83D\uDE4F 오늘의 기도\n본문 핵심을 담은 진실한 기도. 4-6문단. 마지막은 예수님 이름으로.\n\n"+
+    "\uD83C\uDF31 오늘의 한 문장\n오늘 묵상 전체를 한 문장으로 압축한 선언문.\n\n"+
+    "전체 1000-1400자. 학문적 원어 분석 최소화. 따뜻하고 개인적인 어조. 독자에게 직접 말 걸기.";
 }
 
 function callAnthropic(prompt,sys){
   return fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:3000,system:sys||SYS,messages:[{role:"user",content:prompt}]})
+    body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:2000,system:sys||SYS,messages:[{role:"user",content:prompt}]})
   }).then(function(r){
     if(!r.ok)throw new Error("ant-"+r.status);
     return r.json();
@@ -303,9 +305,13 @@ function toHTML(t){
     l=l.replace(/&/g,"&amp;").replace(/</g,"&lt;");
     l=l.replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>");
     if(/^[0-9]+\./.test(l.trim())){
-      html+='<p style="font-weight:700;font-size:15.5px;margin:18px 0 4px;color:var(--ink);">'+l+"</p>";
-    } else if(/^[\uD83C-\uDBFF\uDC00-\uDFFF]/.test(l.trim())){
-      html+='<p style="font-weight:700;font-size:15px;margin:20px 0 6px;color:var(--acc);">'+l+"</p>";
+      html+='<p style="font-weight:700;font-size:15.5px;margin:20px 0 4px;color:var(--ink);">'+l+"</p>";
+    } else if(/^[^a-zA-Z\uAC00-\uD7A3]{1,2}\s/.test(l.trim())&&l.trim().length<30){
+      html+='<p style="font-weight:700;font-size:15px;margin:22px 0 6px;color:var(--acc);">'+l+"</p>";
+    } else if(l.trim().startsWith('"')&&l.trim().endsWith('"')){
+      html+='<p style="font-style:italic;color:var(--soft);border-left:3px solid var(--acc);padding-left:12px;margin:12px 0;">'+l+"</p>";
+    } else if(l.trim().startsWith("—")){
+      html+='<p style="color:var(--soft);font-size:13px;padding-left:15px;margin:-6px 0 10px;">'+l+"</p>";
     } else {
       html+="<p>"+l+"</p>";
     }
