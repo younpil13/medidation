@@ -265,32 +265,17 @@ function parseRef(ref){
 function fetchBible(ref){
   var p=parseRef(ref);
   if(!p)return Promise.reject(new Error("parse"));
-  if(typeof BDATA!=="undefined"){
-    var abbr=BABBR[p.book];
-    if(abbr){var arr=BDATA[abbr+p.ch];
-      if(arr&&arr.length){
-        var ls=[];
-        for(var v=p.vs;v<=p.ve;v++){if(arr[v-1])ls.push(v+"  "+arr[v-1]);}
-        if(ls.length)return Promise.resolve(ls.join("\n"));
-      }
-    }
-  }
   var bn=BNUM[p.book];
   if(!bn)return Promise.reject(new Error("no-book"));
-  function tryG(tr){
-    return fetch("https://getbible.net/v2/"+tr+"/"+bn+"/"+p.ch+".json")
-      .then(function(r){if(!r.ok)throw new Error(r.status);return r.json();})
-      .then(function(d){
-        var ls=[];
-        for(var v=p.vs;v<=p.ve;v++){
-          var vd=d.verses&&d.verses[String(v)];
-          if(vd&&vd.text)ls.push(v+"  "+vd.text.trim());
-        }
-        if(!ls.length)throw new Error("empty");
-        return ls.join("\n");
-      });
-  }
-  return tryG("korean").catch(function(){return tryG("kor");});
+  // Worker 통해 서버사이드로 가져오기 (CORS 문제 없음)
+  var url=WORKER_URL+"/bible?book="+bn+"&ch="+p.ch+"&vs="+p.vs+"&ve="+p.ve;
+  return fetch(url).then(function(r){
+    if(!r.ok)throw new Error("bible-"+r.status);
+    return r.json();
+  }).then(function(d){
+    if(!d.verses)throw new Error("empty");
+    return d.verses;
+  });
 }
 
 function toHTML(t){
